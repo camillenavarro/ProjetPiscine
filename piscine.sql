@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 02 mai 2018 à 07:50
+-- Généré le :  mer. 02 mai 2018 à 14:37
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -49,9 +49,11 @@ CREATE TABLE IF NOT EXISTS `action` (
 
 DROP TABLE IF EXISTS `apprenti`;
 CREATE TABLE IF NOT EXISTS `apprenti` (
-  `id_etu` int(11) NOT NULL COMMENT 'Clé primaire de l''étudiant',
+  `id_apprenti` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire de l''apprenti',
+  `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur',
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
-  PRIMARY KEY (`id_etu`)
+  PRIMARY KEY (`id_apprenti`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
 
 -- --------------------------------------------------------
@@ -124,7 +126,14 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `poste` varchar(30) NOT NULL COMMENT 'Enseignant, chercheur, administrateur, etc.',
   PRIMARY KEY (`id_employe`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations des employés';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des employés';
+
+--
+-- Déchargement des données de la table `employe`
+--
+
+INSERT INTO `employe` (`id_employe`, `id_user`, `poste`) VALUES
+(1, 6, 'Enseignant');
 
 -- --------------------------------------------------------
 
@@ -147,11 +156,11 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 --
 
 INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
-(1, 1, 'ingenieur', 3),
-(2, 2, 'ingenieur', 3),
-(3, 3, 'ingenieur', 3),
-(4, 4, 'ingenieur', 3),
-(5, 5, 'ingenieur', 3);
+(1, 1, 'license', 3),
+(2, 2, 'license', 3),
+(3, 3, 'license', 3),
+(4, 4, 'license', 3),
+(5, 5, 'license', 3);
 
 -- --------------------------------------------------------
 
@@ -297,18 +306,19 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `pseudo` (`pseudo`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id_user`, `pseudo`, `nom`, `prenom`, `mail`, `mdp`, `fonction`, `naissance`, `genre`, `droit`) VALUES
-(1, 'camilleN', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'etudiant', NULL, 'femme', 'administrateur'),
-(2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'etudiant', NULL, 'homme', 'administrateur'),
-(3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'fionachuet', 'etudiant', NULL, 'femme', 'administrateur'),
-(4, 'marineF', 'Foucambert', 'Marine', 'marine.foucambert@edu.ece.fr', 'marinefoucambert', 'etudiant', NULL, 'femme', 'auteur'),
-(5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'etudiant', NULL, 'femme', 'auteur');
+(1, 'camilleN', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', NULL, 'femme', 'administrateur'),
+(2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', NULL, 'homme', 'administrateur'),
+(3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'fionachuet', 'Etudiant', '1996-01-30', 'femme', 'administrateur'),
+(4, 'marineF', 'Foucambert', 'Marine', 'marine.foucambert@edu.ece.fr', 'marinefoucambert', 'Etudiant', NULL, 'femme', 'auteur'),
+(5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Etudiant', NULL, 'femme', 'auteur'),
+(6, 'manoloH', 'Hina', 'Manolo', 'manolo.hina@ece.fr', 'manolohina', 'Employe', NULL, 'homme', 'auteur');
 
 --
 -- Contraintes pour les tables déchargées
@@ -325,7 +335,7 @@ ALTER TABLE `action`
 -- Contraintes pour la table `apprenti`
 --
 ALTER TABLE `apprenti`
-  ADD CONSTRAINT `apprenti_ibfk_1` FOREIGN KEY (`id_etu`) REFERENCES `etudiant` (`id_etu`);
+  ADD CONSTRAINT `apprenti_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`);
 
 --
 -- Contraintes pour la table `contact`

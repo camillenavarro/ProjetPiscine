@@ -27,16 +27,68 @@
 
     //Récupération des données
     while ($db_field = $result->fetch_assoc()) { 
+        $id_user = $db_field["id_user"];
         $nom = $db_field["nom"];
         $prenom = $db_field["prenom"];
         $mail = $db_field["mail"];
-        $fonction = $db_field["fonction"];
         $genre = $db_field["genre"];
+        
+        //Deux types de fonctions: étudiant ou employé
+        if(($fonction = $db_field["fonction"]) == "Etudiant"){
+            $etudiant = true;
+            if($genre == "femme"){
+                $fonction = "Etudiante";
+            }
+        }
+        else {
+            $etudiant = false; //C'est un employé
+        }
+        
+        //Date de naissance optionnelle
+        if($db_field["naissance"] == null){
+            $naissance = "non précisée.";
+        }
+        else{
+            $naissance = $db_field["naissance"];
+        }
+        
         $droit = $db_field["droit"];
+    }
+
+    //Si la personne est un étudiant
+    if($etudiant == true){
+        //Requête SQL
+        $SQL2 = "SELECT * FROM etudiant WHERE id_user='$id_user'";
+        $result2 = $db_handle->query($SQL2);
+        
+        //Récupération des résultats
+        while ($db_field2 = $result2->fetch_assoc()) { 
+            $etudes = $db_field2["etudes"];
+            $annees = $db_field2["annees"];
+        }
+        
+        //Libérations des résultats
+        $result2->free();
+    }
+    
+    //Sinon c'est un employé
+    else{
+        //Requête SQL
+        $SQL3 = "SELECT * FROM employe WHERE id_user='$id_user'";
+        $result3 = $db_handle->query($SQL3);
+        
+        //Récupération des résultats
+        while ($db_field3 = $result3->fetch_assoc()) { 
+            $fonction = $db_field3["poste"];
+        }
+        
+        //Libérations des résultats
+        $result3->free();
     }
 
     //Libération des résultats
     $result->free();
+
         
     //Fermeture de la connexion à la BDD
     $db_handle->close();
@@ -49,6 +101,61 @@
     </head>
     
     <body>
+        <!-- Div principal -->
+        <div id="conteneur">
+            
+            <!-- Photo de profil -->
+            <div id="photo">
+            </div>
+            
+            <!-- Age -->
+            <div id="naissance">
+                <p>Date de naissance: <?php echo $naissance; ?></p>
+            </div>
+            
+            <!-- Fonction -->
+            <div id="fonction">
+                <p>
+                    <?php echo $fonction; ?> <!-- La fonction : étudiant ou le poste de l'employé -->
+                    <?php 
+                        if($etudiant == true){ //Alors on affiche les résultats en lien avec un étudiant
+                            echo " en " . $etudes . " en " . $annees . "ème année.";
+                        }
+                    ?>
+                </p>
+            </div>
+            
+            <!-- Relation -->
+            <div id="relation">
+            </div>
+            
+            <!-- Envoyer un message -->
+            
+            
+            <!-- Supprimer du réseau -->
+            
+            <!-- Identité -->
+            <div id="identite">
+                <p><?php echo $prenom; ?> <?php echo $nom; ?></p>
+            </div>
+            
+            <!-- Adresse mail -->
+            <div id="mail">
+                <p><?php echo $mail; ?></p>
+            </div>
+            
+            <!-- Etudes et expérience -->
+            <div id="experience">
+                <p>Etudes et expérience</p>
+            </div>
+            
+            <!-- Voir le CV -->
+            
+            <!-- Evénements récents -->
+            <div id="evenements">
+            </div>
+        
+        </div>
     </body>
 
 </html>
