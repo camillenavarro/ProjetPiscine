@@ -212,7 +212,7 @@
                     </p>
                     
                     <!-- Bouton de modification des informations -->
-                    <form action="modifier_profil.html" method="post">
+                    <form action="modifier_profil_front.php" method="post">
                         <input type="submit" value="Modifier mes informations">
                     </form>
                     

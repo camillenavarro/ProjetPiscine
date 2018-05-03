@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 14:41
+-- Généré le :  jeu. 03 mai 2018 à 21:34
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
   PRIMARY KEY (`id_apprenti`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
 
 -- --------------------------------------------------------
 
@@ -66,12 +66,22 @@ DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
   `id_contact` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire du contact',
   `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur',
-  `pseudo_contact` varchar(30) NOT NULL COMMENT 'Pseudo du contact',
+  `id_user_contact` int(11) NOT NULL COMMENT 'Clé primaire du contact',
   `type` varchar(10) NOT NULL COMMENT 'Type de relation (ami ou collegue)',
   `restreint` varchar(4) NOT NULL DEFAULT 'non' COMMENT 'Le contact fait parti du cercle restreint d''amis (oui) ou non',
   PRIMARY KEY (`id_contact`),
-  KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+  KEY `id_user` (`id_user`),
+  KEY `id_user_contact` (`id_user_contact`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+
+--
+-- Déchargement des données de la table `contact`
+--
+
+INSERT INTO `contact` (`id_contact`, `id_user`, `id_user_contact`, `type`, `restreint`) VALUES
+(4, 2, 5, 'ami', 'oui'),
+(5, 2, 1, 'ami', 'oui'),
+(6, 2, 6, 'collegue', 'non');
 
 -- --------------------------------------------------------
 
@@ -126,14 +136,15 @@ CREATE TABLE IF NOT EXISTS `employe` (
   `poste` varchar(30) NOT NULL COMMENT 'Enseignant, chercheur, administrateur, etc.',
   PRIMARY KEY (`id_employe`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des employés';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Informations des employés';
 
 --
 -- Déchargement des données de la table `employe`
 --
 
 INSERT INTO `employe` (`id_employe`, `id_user`, `poste`) VALUES
-(1, 6, 'Enseignant');
+(1, 6, 'Enseignant'),
+(2, 7, 'Mascotte');
 
 -- --------------------------------------------------------
 
@@ -149,7 +160,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `annees` int(11) NOT NULL COMMENT 'Années d''études',
   PRIMARY KEY (`id_etu`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
 
 --
 -- Déchargement des données de la table `etudiant`
@@ -161,23 +172,6 @@ INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
 (3, 3, 'license', 3),
 (4, 4, 'license', 3),
 (5, 5, 'license', 3);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `image`
---
-
-DROP TABLE IF EXISTS `image`;
-CREATE TABLE IF NOT EXISTS `image` (
-  `img_id` int(11) NOT NULL AUTO_INCREMENT,
-  `img_nom` varchar(50) NOT NULL,
-  `img_taille` varchar(25) NOT NULL,
-  `img_type` varchar(25) NOT NULL,
-  `img_desc` text NOT NULL,
-  `img_blob` blob NOT NULL,
-  PRIMARY KEY (`img_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table qui stocke les images ';
 
 -- --------------------------------------------------------
 
@@ -282,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
   KEY `id_fond` (`id_fond`),
   KEY `id_cv` (`id_cv`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
 
 --
 -- Déchargement des données de la table `profil`
@@ -294,7 +288,8 @@ INSERT INTO `profil` (`id_profil`, `id_user`, `id_photo`, `id_fond`, `id_cv`, `e
 (3, 3, 6, 9, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
 (4, 4, NULL, NULL, NULL, 'Spécialiste des chiens.', 'Présentement à la recherche d\'un appartement dans le Poitou.', 'publique'),
 (5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique'),
-(6, 6, NULL, NULL, NULL, 'Enseignant à l\'ECE Paris.', 'Un certain lycée.', 'publique');
+(6, 6, NULL, NULL, NULL, 'Enseignant à l\'ECE Paris.', 'Un certain lycée.', 'publique'),
+(7, 7, NULL, NULL, NULL, NULL, NULL, 'public');
 
 -- --------------------------------------------------------
 
@@ -337,7 +332,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `droit` varchar(15) NOT NULL DEFAULT 'auteur' COMMENT 'Auteur ou administrateur',
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `mail` (`mail`),
-  UNIQUE KEY `pseudo` (`pseudo`)
+  UNIQUE KEY `pseudo` (`pseudo`),
+  UNIQUE KEY `pseudo_2` (`pseudo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
 
 --
@@ -345,12 +341,13 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_user`, `pseudo`, `nom`, `prenom`, `mail`, `mdp`, `fonction`, `naissance`, `genre`, `droit`) VALUES
-(1, 'camilleN', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
+(1, 'TelephoneRose', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
 (2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', '1997-01-24', 'homme', 'administrateur'),
-(3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'fionachuet', 'Etudiant', '1996-01-30', 'femme', 'administrateur'),
+(3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'Fiona300196', 'Etudiant', '1996-10-30', 'femme', 'administrateur'),
 (4, 'marineF', 'Foucambert', 'Marine', 'marine.foucambert@edu.ece.fr', 'marinefoucambert', 'Etudiant', NULL, 'femme', 'auteur'),
 (5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Etudiant', NULL, 'femme', 'auteur'),
-(6, 'manoloH', 'Hina', 'Manolo', 'manolo.hina@ece.fr', 'manolohina', 'Employe', NULL, 'homme', 'auteur');
+(6, 'manoloH', 'Hina', 'Manolo', 'manolo.hina@ece.fr', 'manolohina', 'Employe', NULL, 'homme', 'auteur'),
+(7, 'moochC', 'Chuet', 'Mooch', 'mooch@edu.ece.fr', 'Mooch0616', 'Employe', '2016-06-14', 'autre', 'auteur');
 
 --
 -- Contraintes pour les tables déchargées
@@ -373,7 +370,8 @@ ALTER TABLE `apprenti`
 -- Contraintes pour la table `contact`
 --
 ALTER TABLE `contact`
-  ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`);
+  ADD CONSTRAINT `contact_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`),
+  ADD CONSTRAINT `contact_ibfk_2` FOREIGN KEY (`id_user_contact`) REFERENCES `utilisateur` (`id_user`);
 
 --
 -- Contraintes pour la table `convo_user`

@@ -39,9 +39,10 @@
         $prenom = $db_field["prenom"];
         $mail = $db_field["mail"];
         $genre = $db_field["genre"];
+        $fonction = $db_field["fonction"];
         
         //Deux types de fonctions: étudiant ou employé
-        if(($fonction = $db_field["fonction"]) == "Etudiant"){
+        if($fonction == "Etudiant" or $fonction == "Apprenti"){
             $etudiant = true;
             if($genre == "femme"){
                 $fonction = "Etudiante";
