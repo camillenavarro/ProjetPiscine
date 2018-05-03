@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 13:57
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Généré le :  jeu. 03 mai 2018 à 14:38
+-- Version du serveur :  5.7.21
+-- Version de PHP :  5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
   PRIMARY KEY (`id_apprenti`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
 
 -- --------------------------------------------------------
 
@@ -274,8 +274,8 @@ CREATE TABLE IF NOT EXISTS `profil` (
   `id_photo` int(11) DEFAULT NULL COMMENT 'Clé secondaire de la photo de profil',
   `id_fond` int(11) DEFAULT NULL COMMENT 'Clé secondaire de l''image de fond du profil',
   `id_cv` int(11) DEFAULT NULL COMMENT 'Clé secondaire du CV de l''utilisateur',
-  `experience` text NOT NULL COMMENT 'Description de l''expérience',
-  `etude` text NOT NULL COMMENT 'Description des études',
+  `experience` text COMMENT 'Description de l''expérience',
+  `etude` text COMMENT 'Description des études',
   `acces` varchar(10) NOT NULL DEFAULT 'publique' COMMENT 'Publique, prive ou restreint',
   PRIMARY KEY (`id_profil`),
   KEY `id_photo` (`id_photo`),
@@ -338,7 +338,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `pseudo` (`pseudo`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
 
 --
 -- Déchargement des données de la table `utilisateur`
