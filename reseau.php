@@ -118,6 +118,11 @@
 					echo "$prenom_ami[$i] ";  
 					echo " $nom_ami[$i]"; 
 				?>
+				<br><br>
+				<?php 
+					$_SESSION['pseudo'] = $ami[$i];
+				?>
+				<a href = "profil.php"><button>Voir le profil</button></a>
 				</td>
 			</tr>
 			<?php
