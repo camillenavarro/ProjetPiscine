@@ -1,6 +1,9 @@
 <?php
+    session_start();
+
     //Déclaration des variables 
-     $pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : ""; //On vérifie si le champ associé au nom de l'employé est vide 
+    $pseudo = $_SESSION['pseudo'];
+     //$pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : ""; //On vérifie si le champ associé au nom de l'employé est vide 
      $error = ""; //Erreur à afficher si l'un des champs du formulaire est vide ou incorrect
 
     //Vérification des champs vides ou incorrects, affect à error une valeur en conséquence
