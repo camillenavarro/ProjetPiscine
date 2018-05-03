@@ -16,6 +16,10 @@
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
 
+    //Eviter que des ? apparaissent à la place des accents
+    $db_handle->query('SET NAMES utf8');
+    header('Content-Type: text/html; charset=utf-8');
+
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo'";
     $result = $db_handle->query($SQL);
@@ -86,9 +90,63 @@
         $result3->free();
     }
 
+    //Requêtes SQL pour informations du profil
+    $SQL4 = "SELECT * FROM profil WHERE id_user='$id_user'";
+    $result4 = $db_handle->query($SQL4);
+    
+    //Récupération des résultats
+    while ($db_field4 = $result4->fetch_assoc()) { 
+        $id_photo = $db_field4["id_photo"];
+        $id_fond = $db_field4["id_fond"];
+        $experience = $db_field4["experience"];
+        $etude_historique = $db_field4["etude"];    
+    }
+
+    //Libérations des résultats du profil
+    $result4->free();
+
+    //Variables des photos
+    $photo_profil = null;
+    $photo_fond = null;
+
+    //Si l'utilisateur possède une photo de profil
+    if($id_photo != null){
+        //Requête SQL pour la photo de profil
+        $SQL5 = "SELECT * FROM media WHERE id_media='$id_photo'";
+        $result5 = $db_handle->query($SQL5);
+    
+        //Récupération des résultats
+        while ($db_field5 = $result5->fetch_assoc()) { 
+            $photo_profil = $db_field5["nom_fichier"];   
+        }
+
+        //Libérations des résultats de la photo de profil
+        $result5->free();
+    }
+    else if($genre == "femme"){
+        $photo_profil = "avatar_femme.png";
+    }
+    else{
+        $photo_profil = "avatar_homme.png";
+    }
+    
+    //Si l'utilisateur possède un fond d'écran
+    if($id_fond != null){
+        //Requête SQL pour la photo de profil
+        $SQL6 = "SELECT * FROM media WHERE id_media='$id_fond'";
+        $result6 = $db_handle->query($SQL6);
+    
+        //Récupération des résultats
+        while ($db_field6 = $result6->fetch_assoc()) { 
+            $photo_fond = $db_field6["nom_fichier"];   
+        }
+
+        //Libérations des résultats de la photo de profil
+        $result6->free();
+    }
+
     //Libération des résultats
     $result->free();
-
         
     //Fermeture de la connexion à la BDD
     $db_handle->close();
@@ -96,7 +154,7 @@
 
 <html>
     <head>
-        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Profil de <?php echo $prenom; ?> <?php echo $nom; ?> </title>
     </head>
     
@@ -104,57 +162,83 @@
         <!-- Div principal -->
         <div id="conteneur">
             
-            <!-- Photo de profil -->
-            <div id="photo">
+            <!-- Type d'utilisateur -->
+            <div id="droit">
+                <h3>Profil <?php echo $droit; ?></h3>
             </div>
             
-            <!-- Age -->
-            <div id="naissance">
-                <p>Date de naissance: <?php echo $naissance; ?></p>
-            </div>
+            <!-- Colonne de gauche -->
+            <div id="profil_gauche">
+                <!-- Photo de profil -->
+                <div id="photo_profil">
+                    <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
+                </div>
             
-            <!-- Fonction -->
-            <div id="fonction">
-                <p>
-                    <?php echo $fonction; ?> <!-- La fonction : étudiant ou le poste de l'employé -->
-                    <?php 
-                        if($etudiant == true){ //Alors on affiche les résultats en lien avec un étudiant
-                            echo " en " . $etudes . " en " . $annees . "ème année.";
-                        }
-                    ?>
+                <!-- Age -->
+                <p id="naissance"> Date de naissance: <?php echo $naissance; ?></p>
+
+                <!-- Fonction -->
+                <p id="fonction">
+                        <?php echo $fonction; ?> <!-- La fonction : étudiant ou le poste de l'employé -->
+                        <?php 
+                            if($etudiant == true){ //Alors on affiche les résultats en lien avec un étudiant
+                                echo " en " . $etudes . " en " . $annees . "ème année.";
+                            }
+                        ?>
                 </p>
+
+                <!-- Relation -->
+                <p id="relation"></p>
+
+                <!-- Envoyer un message -->
+                <p><input type="submit" value="Envoyer un message" name="message"></p>
+
+                <!-- Supprimer du réseau -->
+                <p><input type="submit" value="Supprimer du réseau" name="suppression_reseau"></p>
+
+                <!-- Fin de la colonne de gauche -->
             </div>
             
-            <!-- Relation -->
-            <div id="relation">
+            
+            <!-- Colonne centrale -->
+            <div id="profil_centre">
+                <!-- Identité -->
+                <p id="identite"><?php echo $prenom; ?> <?php echo $nom; ?></p>
+
+                <!-- Adresse mail -->
+                <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
+                
+
+                <!-- Etudes et expérience -->
+                <div id="etudes">
+                    <h2>Etudes</h2>
+                    <p><?php echo $etude_historique; ?></p>
+                </div>
+
+                <div id="experience">
+                    <h2>Expérience</h2>
+                    <p><?php echo $experience; ?></p>
+                </div>
+
+                <!-- Voir le CV -->
+                <p><input type="submit" value="Voir le CV"></p>
+                <!-- Fin de la colonne centrale -->
             </div>
             
-            <!-- Envoyer un message -->
-            
-            
-            <!-- Supprimer du réseau -->
-            
-            <!-- Identité -->
-            <div id="identite">
-                <p><?php echo $prenom; ?> <?php echo $nom; ?></p>
+            <!-- Colonne de droite -->
+            <div id="profil_droite">
+                <!-- Evénements récents -->
+                <div id="evenements">
+                    <h2>Evénements récents</h2>
+                </div>
+
+                <!-- Albums -->
+
+                <!-- Boutons de suppression et de modification pour les administrateurs -->
+                <p><input type="submit" value="Modifier l'utilisateur" name="modification_admin"></p>
+                <p><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></p>
+                <!-- Fin de la colonne de droite -->
             </div>
-            
-            <!-- Adresse mail -->
-            <div id="mail">
-                <p><?php echo $mail; ?></p>
-            </div>
-            
-            <!-- Etudes et expérience -->
-            <div id="experience">
-                <p>Etudes et expérience</p>
-            </div>
-            
-            <!-- Voir le CV -->
-            
-            <!-- Evénements récents -->
-            <div id="evenements">
-            </div>
-        
         </div>
     </body>
 

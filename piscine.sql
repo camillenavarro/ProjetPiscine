@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 07:58
+-- Généré le :  jeu. 03 mai 2018 à 09:46
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
   KEY `id_fond` (`id_fond`),
   KEY `id_cv` (`id_cv`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
 
 --
 -- Déchargement des données de la table `profil`
@@ -276,7 +276,8 @@ INSERT INTO `profil` (`id_profil`, `id_user`, `id_photo`, `id_fond`, `id_cv`, `e
 (2, 2, 5, 8, NULL, 'Chapi-chapo!', 'Lycée puis ECE.', 'prive'),
 (3, 3, 6, 9, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
 (4, 4, NULL, NULL, NULL, 'Spécialiste des chiens.', 'Présentement à la recherche d\'un appartement dans le Poitou.', 'publique'),
-(5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique');
+(5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique'),
+(6, 6, NULL, NULL, NULL, 'Enseignant à l\'ECE Paris.', 'Un certain lycée.', 'publique');
 
 -- --------------------------------------------------------
 
@@ -327,8 +328,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_user`, `pseudo`, `nom`, `prenom`, `mail`, `mdp`, `fonction`, `naissance`, `genre`, `droit`) VALUES
-(1, 'camilleN', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', NULL, 'femme', 'administrateur'),
-(2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', NULL, 'homme', 'administrateur'),
+(1, 'camilleN', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
+(2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', '1997-01-24', 'homme', 'administrateur'),
 (3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'fionachuet', 'Etudiant', '1996-01-30', 'femme', 'administrateur'),
 (4, 'marineF', 'Foucambert', 'Marine', 'marine.foucambert@edu.ece.fr', 'marinefoucambert', 'Etudiant', NULL, 'femme', 'auteur'),
 (5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Etudiant', NULL, 'femme', 'auteur'),
