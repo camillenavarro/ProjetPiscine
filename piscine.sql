@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 02 mai 2018 à 14:37
+-- Généré le :  jeu. 03 mai 2018 à 07:58
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -171,13 +171,27 @@ INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE IF NOT EXISTS `media` (
   `id_media` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire du media',
+  `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur auquel appartient le média',
   `type` varchar(6) NOT NULL COMMENT 'Video ou photo',
   `nom_fichier` varchar(30) NOT NULL COMMENT 'Nom du fichier contenant le média',
-  `titre` varchar(15) NOT NULL COMMENT 'Titre du média',
+  `titre` varchar(30) NOT NULL COMMENT 'Titre du média',
   `lieu` varchar(20) DEFAULT NULL COMMENT 'Lieu où a été pris le média',
   `date` date DEFAULT NULL COMMENT 'Date ou a été pris le média',
-  PRIMARY KEY (`id_media`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
+  PRIMARY KEY (`id_media`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
+
+--
+-- Déchargement des données de la table `media`
+--
+
+INSERT INTO `media` (`id_media`, `id_user`, `type`, `nom_fichier`, `titre`, `lieu`, `date`) VALUES
+(4, 1, 'photo', 'camille_navarro.jpg', 'Profil', NULL, NULL),
+(5, 2, 'photo', 'roman_gouge.jpg', 'Profil', NULL, NULL),
+(6, 3, 'photo', 'fiona_chuet.jpg', 'Profil', NULL, NULL),
+(7, 1, 'photo', 'carnet.jpg', 'Fond', NULL, NULL),
+(8, 2, 'photo', 'bois.jpg', 'Fond', NULL, NULL),
+(9, 3, 'photo', 'montagne.jpg', 'Fond', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -258,9 +272,9 @@ CREATE TABLE IF NOT EXISTS `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `id_user`, `id_photo`, `id_fond`, `id_cv`, `experience`, `etude`, `acces`) VALUES
-(1, 1, NULL, NULL, NULL, 'Regarde Netflix depuis qu\'elle est bébé.', 'Lycée dans un coin perdu puis ECE.', 'publique'),
-(2, 2, NULL, NULL, NULL, 'Chapi-chapo!', 'Lycée puis ECE.', 'prive'),
-(3, 3, NULL, NULL, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
+(1, 1, 4, 7, NULL, 'Regarde Netflix depuis qu\'elle est bébé.', 'Lycée dans un coin perdu puis ECE.', 'publique'),
+(2, 2, 5, 8, NULL, 'Chapi-chapo!', 'Lycée puis ECE.', 'prive'),
+(3, 3, 6, 9, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
 (4, 4, NULL, NULL, NULL, 'Spécialiste des chiens.', 'Présentement à la recherche d\'un appartement dans le Poitou.', 'publique'),
 (5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique');
 
@@ -361,6 +375,12 @@ ALTER TABLE `employe`
 --
 ALTER TABLE `etudiant`
   ADD CONSTRAINT `etudiant_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`);
+
+--
+-- Contraintes pour la table `media`
+--
+ALTER TABLE `media`
+  ADD CONSTRAINT `media_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`);
 
 --
 -- Contraintes pour la table `message`
