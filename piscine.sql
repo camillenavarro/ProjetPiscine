@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 09:46
--- Version du serveur :  5.7.21
--- Version de PHP :  5.6.35
+-- Généré le :  jeu. 03 mai 2018 à 13:57
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -165,6 +165,23 @@ INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `image`
+--
+
+DROP TABLE IF EXISTS `image`;
+CREATE TABLE IF NOT EXISTS `image` (
+  `img_id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_nom` varchar(50) NOT NULL,
+  `img_taille` varchar(25) NOT NULL,
+  `img_type` varchar(25) NOT NULL,
+  `img_desc` text NOT NULL,
+  `img_blob` blob NOT NULL,
+  PRIMARY KEY (`img_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Table qui stocke les images ';
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `media`
 --
 
@@ -291,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur postant la publication',
   `id_media` int(11) DEFAULT NULL COMMENT 'Clé secondaire du média à ajouter à la publicaiton',
   `type` varchar(6) NOT NULL COMMENT 'Texte ou media',
-  `date_post` date NOT NULL COMMENT 'Date à laquelle la publication est postée',
+  `date_post` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date à laquelle la publication est postée',
   `texte` text COMMENT 'Message de la publication',
   `statut` varchar(30) DEFAULT NULL COMMENT 'Statut de l''utilisateur au moment de poster',
   `acces` varchar(10) NOT NULL DEFAULT 'publique' COMMENT 'Publique, prive ou restreint',
