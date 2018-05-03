@@ -7,7 +7,7 @@
     <body>
         <h2>Entrer le nom de l'utilisateur à rechercher:</h2>
         
-        <form action="profil.php" method="post">
+        <form action="gestion_profil.php" method="post">
             <table>
                 <tr>
                     <td>Pseudo:</td>
