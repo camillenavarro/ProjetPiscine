@@ -1,4 +1,5 @@
 <?php
+    session_start();
 	$ami = array();
 	$collegue = array();
 	$nom_ami = array();
@@ -116,7 +117,7 @@
         <a href="deconnexion.php"><button>Déconnexion</button></a>
 			
 		<h1>Réseau</h1> 
-		<h2>Amis</h1>
+		<h2>Amis</h2>
 		<table>
 		<tbody>
 			<?php 
@@ -138,8 +139,9 @@
 				<?php 
 					$_SESSION['pseudo'] = $pseudo_ami[$i];
 				?>
-				<a href = "profil.php"><button>Voir le profil</button></a>
-				</td>
+				<form action="profil_reseau.php" method="post">
+                        <input type="submit" value="Voir le profil">
+                </form>
 			</tr>
 			<?php
 				}
@@ -169,7 +171,10 @@
 				<?php 
 					$_SESSION['pseudo'] = $pseudo_collegue[$i];
 				?>
-				<a href = "profil.php"><button>Voir le profil</button></a>
+                    
+				<form action="profil_reseau.php" method="post">
+                        <input type="submit" value="Voir le profil">
+                </form>
 				</td>
 			</tr>
 			<?php

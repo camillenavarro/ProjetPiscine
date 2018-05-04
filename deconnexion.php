@@ -15,6 +15,14 @@
     $SQL = "DELETE FROM connexion WHERE id_user='$id_user'";
     $db_handle->query($SQL);
 		
+    //Détruire les variables de la session
+    session_start();
+    session_unset();
+    session_destroy();
+    session_write_close();
+    setcookie(session_name(),'',0,'/');
+    session_regenerate_id(true);
+        
     //On redirige vers la page d'accueil
     header('Location: login.html');
 

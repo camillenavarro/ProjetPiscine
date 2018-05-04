@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $etudiant = false ;
 
     //Connexion à la BDD
@@ -16,9 +17,12 @@
 	{
 		$id_co = $db_field7['id_user'];
 	}
+
+    //Déclaration des variables 
+    $pseudo_reseau = $_SESSION['pseudo'];
 	
     //Requête SQL et récupération des résultats
-    $SQL = "SELECT * FROM utilisateur WHERE id_user='$id_co'";
+    $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo_reseau'";
     $result = $db_handle->query($SQL);
     //Récupération des données
     while ($db_field = $result->fetch_assoc()) 
