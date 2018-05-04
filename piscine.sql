@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 mai 2018 à 18:36
+-- Généré le :  ven. 04 mai 2018 à 23:46
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -54,7 +54,14 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
   PRIMARY KEY (`id_apprenti`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+
+--
+-- Déchargement des données de la table `apprenti`
+--
+
+INSERT INTO `apprenti` (`id_apprenti`, `id_user`, `entreprise`) VALUES
+(2, 5, 'qqpart');
 
 -- --------------------------------------------------------
 
@@ -67,13 +74,6 @@ CREATE TABLE IF NOT EXISTS `connexion` (
   `id_user` int(11) NOT NULL COMMENT 'Clé primaire de l''utilisateur connecté',
   PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `connexion`
---
-
-INSERT INTO `connexion` (`id_user`) VALUES
-(2);
 
 -- --------------------------------------------------------
 
@@ -91,23 +91,25 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id_contact`),
   KEY `id_user` (`id_user`),
   KEY `id_user_contact` (`id_user_contact`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
 
 --
 -- Déchargement des données de la table `contact`
 --
 
 INSERT INTO `contact` (`id_contact`, `id_user`, `id_user_contact`, `type`, `restreint`) VALUES
-(4, 2, 5, 'ami', 'oui'),
-(5, 2, 1, 'ami', 'oui'),
-(6, 2, 6, 'collegue', 'non'),
-(9, 1, 6, 'collegue', 'non'),
-(10, 5, 2, 'ami', 'oui'),
-(11, 1, 2, 'ami', 'oui'),
-(12, 6, 2, 'collegue', 'non'),
-(15, 6, 1, 'collegue', 'non'),
+(4, 2, 5, 'collegue', 'oui'),
+(6, 2, 6, 'ami', 'non'),
+(10, 5, 2, 'collegue', 'oui'),
+(12, 6, 2, 'ami', 'non'),
 (16, 2, 3, 'ami', 'non'),
-(17, 3, 2, 'ami', 'non');
+(17, 3, 2, 'ami', 'non'),
+(18, 1, 2, 'ami', 'non'),
+(19, 2, 1, 'ami', 'non'),
+(20, 1, 5, 'ami', 'non'),
+(21, 5, 1, 'ami', 'non'),
+(22, 6, 5, 'collegue', 'non'),
+(23, 5, 6, 'collegue', 'non');
 
 -- --------------------------------------------------------
 
@@ -147,14 +149,15 @@ CREATE TABLE IF NOT EXISTS `cv` (
   `id_cv` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire du CV',
   `nom_fichier` varchar(30) NOT NULL COMMENT 'Nom du fichier contenant le CV',
   PRIMARY KEY (`id_cv`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations sur les CV des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Informations sur les CV des utilisateurs';
 
 --
 -- Déchargement des données de la table `cv`
 --
 
 INSERT INTO `cv` (`id_cv`, `nom_fichier`) VALUES
-(1, 'CV.pdf');
+(1, 'CV.pdf'),
+(2, 'Cv de rim.docx');
 
 -- --------------------------------------------------------
 
@@ -169,7 +172,27 @@ CREATE TABLE IF NOT EXISTS `demande_ami` (
   `id_contact` int(11) NOT NULL COMMENT 'id de celui qui recoit la demande',
   `type` text NOT NULL COMMENT 'ami ou collegue',
   PRIMARY KEY (`id_demande`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `emploi`
+--
+
+DROP TABLE IF EXISTS `emploi`;
+CREATE TABLE IF NOT EXISTS `emploi` (
+  `id_emploi` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL COMMENT 'id du posteur',
+  `entreprise` text NOT NULL,
+  `type` text NOT NULL COMMENT 'stage, interim, cdi...',
+  `poste` text NOT NULL,
+  `date_debut` date NOT NULL,
+  `date_fin` date NOT NULL,
+  `texte` text NOT NULL COMMENT 'description de l''emploi',
+  `lieu` text NOT NULL,
+  PRIMARY KEY (`id_emploi`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -208,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `annees` int(11) NOT NULL COMMENT 'Années d''études',
   PRIMARY KEY (`id_etu`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
 
 --
 -- Déchargement des données de la table `etudiant`
@@ -218,7 +241,9 @@ INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
 (1, 1, 'license', 3),
 (2, 2, 'license', 3),
 (3, 3, 'license', 3),
-(5, 5, 'license', 3);
+(5, 5, 'license', 3),
+(7, 9, 'license', 1),
+(8, 10, 'master', 1);
 
 -- --------------------------------------------------------
 
@@ -237,7 +262,7 @@ CREATE TABLE IF NOT EXISTS `media` (
   `date` date DEFAULT NULL COMMENT 'Date ou a été pris le média',
   PRIMARY KEY (`id_media`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
 
 --
 -- Déchargement des données de la table `media`
@@ -246,11 +271,12 @@ CREATE TABLE IF NOT EXISTS `media` (
 INSERT INTO `media` (`id_media`, `id_user`, `type`, `nom_fichier`, `titre`, `lieu`, `date`) VALUES
 (4, 1, 'photo', 'IMG_3802.JPG', 'Profil', NULL, NULL),
 (5, 2, 'photo', 'roman_gouge.jpg', 'Profil', NULL, NULL),
-(6, 3, 'photo', 'fiona_chuet.jpg', 'Profil', NULL, NULL),
+(6, 3, 'photo', 'avatar_femme.png', 'Profil', NULL, NULL),
 (7, 1, 'photo', 'carnet.jpg', 'Fond', NULL, NULL),
-(8, 2, 'photo', 'bois.jpg', 'Fond', NULL, NULL),
+(8, 2, 'photo', 'montagne.jpg', 'Fond', NULL, NULL),
 (9, 3, 'photo', 'montagne.jpg', 'Fond', NULL, NULL),
-(10, 7, 'photo', 'truc.jpg', 'Fond', NULL, NULL);
+(10, 5, 'photo', 'carnet.jpg', 'Fond', NULL, NULL),
+(11, 5, 'photo', 'rim.jpg', 'Fond', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -324,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
   KEY `id_fond` (`id_fond`),
   KEY `id_cv` (`id_cv`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
 
 --
 -- Déchargement des données de la table `profil`
@@ -334,9 +360,11 @@ INSERT INTO `profil` (`id_profil`, `id_user`, `id_photo`, `id_fond`, `id_cv`, `e
 (1, 1, 4, 7, 1, 'Regarde Netflix depuis qu\'elle est bébé.', 'Lycée dans un coin perdu puis prepa et enfin ECE.', 'publique'),
 (2, 2, 5, 8, NULL, 'Chapi-chapo!', 'Lycée puis ECE.', 'prive'),
 (3, 3, 6, 9, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
-(5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique'),
+(5, 5, 10, 11, 2, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique'),
 (6, 6, NULL, NULL, NULL, 'Enseignant à l\'ECE Paris.', 'Un certain lycée.', 'publique'),
-(7, 7, NULL, NULL, NULL, NULL, NULL, 'public');
+(7, 7, NULL, NULL, NULL, NULL, NULL, 'public'),
+(9, 9, NULL, NULL, NULL, NULL, NULL, 'public'),
+(10, 10, NULL, NULL, NULL, NULL, NULL, 'public');
 
 -- --------------------------------------------------------
 
@@ -381,7 +409,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `pseudo_2` (`pseudo`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -391,9 +419,11 @@ INSERT INTO `utilisateur` (`id_user`, `pseudo`, `nom`, `prenom`, `mail`, `mdp`, 
 (1, 'laparfaite', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
 (2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', '1997-01-24', 'homme', 'administrateur'),
 (3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'Fiona300196', 'Etudiant', '1996-10-30', 'femme', 'administrateur'),
-(5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Etudiant', NULL, 'femme', 'auteur'),
+(5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Apprenti', '2018-05-04', 'femme', 'administrateur'),
 (6, 'manoloH', 'Hina', 'Manolo', 'manolo.hina@ece.fr', 'manolohina', 'Employe', NULL, 'homme', 'auteur'),
-(7, 'moochC', 'Chuet', 'Mooch', 'mooch@edu.ece.fr', 'Mooch0616', 'Employe', '2016-06-14', 'autre', 'auteur');
+(7, 'moochC', 'Chuet', 'Mooch', 'mooch@edu.ece.fr', 'Mooch0616', 'Employe', '2016-06-14', 'autre', 'auteur'),
+(9, 'crotte', 'crotte', 'truc', 'crotte@truc.fr', 'crotte', 'Etudiant', NULL, 'femme', 'auteur'),
+(10, 'lul', 'franck', 'ie', 'franck@i.e', 'lolo', 'Etudiant', NULL, 'homme', 'auteur');
 
 --
 -- Contraintes pour les tables déchargées
