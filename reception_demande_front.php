@@ -1,8 +1,10 @@
 <?php
+	session_start();
 	$demandeur = array();
 	$prenom = array();
 	$nom = array();
 	$type = array();
+	$tab = array();
 
 	$database = "piscine"; //Nom de la BDD
 	$db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -25,6 +27,7 @@
 	$i = 0 ;
 	while($db_field3 = $result3->fetch_assoc())
 	{
+		$id_demande[$i] = $db_field3['id_demande'];
 		$demandeur[$i] = $db_field3['id_user'];
 		$type[$i] = $db_field3['type'];
 		$i++;
@@ -70,22 +73,20 @@
 			<p>Vous avez <?php echo sizeof($demandeur) ; ?> demandes d'amis.</p>
 			
 			<p>
+			
 			<?php for($i = 0 ; $i < sizeof($demandeur) ; $i++)
 				{
+					array_push($tab, $id_demande[$i]);	
 			?>
 			<br><?php echo $prenom[$i]; ?> <?php echo $nom[$i]; ?> souhaite devenir votre <?php echo $type[$i]; ?>.
-			<br><form action = "reception_demande_back.php">
-				<select name = "choix">
-					<option>Accepter</option>
-					<option>Refuser</option>
-				</select>
-				<input type ="submit" value = "Valider">
-			</form>			
+			<br><form action = "reception_demande_back.php" method = "post">
+				<input type="submit" value="Accepter" name = "choix"> <input type="submit" value="Refuser" name = "choix">
+            </form>
 			<?php
 				}
 			?>
 			
-			
+			<?php $_SESSION['id_demande'] = $tab; ?>
 		</div>
 	</body>
 </html>
