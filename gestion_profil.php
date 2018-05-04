@@ -268,11 +268,7 @@
                     <form action="inscription_front.php" method="post">
                         <input type="submit" value="Ajouter un utilisateur">
                     </form>
-                   
-                    <!-- Supprimer un administrateur -->
-                    <form action="supprimer.php" method="post">
-                        <input type="submit" value="Supprimer un utilisateur">
-                    </form>
+            
                 </div>
                 <!-- Fin de la colonne de droite -->
             </div>
