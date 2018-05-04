@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 mai 2018 à 08:42
+-- Généré le :  ven. 04 mai 2018 à 12:24
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
   PRIMARY KEY (`id_apprenti`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
 
 DROP TABLE IF EXISTS `connexion`;
 CREATE TABLE IF NOT EXISTS `connexion` (
-  `id_user` int(11) NOT NULL COMMENT 'Clé primaire de l''utilisateur connecté'
+  `id_user` int(11) NOT NULL COMMENT 'Clé primaire de l''utilisateur connecté',
+  PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -90,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id_contact`),
   KEY `id_user` (`id_user`),
   KEY `id_user_contact` (`id_user_contact`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
 
 --
 -- Déchargement des données de la table `contact`
@@ -99,7 +100,16 @@ CREATE TABLE IF NOT EXISTS `contact` (
 INSERT INTO `contact` (`id_contact`, `id_user`, `id_user_contact`, `type`, `restreint`) VALUES
 (4, 2, 5, 'ami', 'oui'),
 (5, 2, 1, 'ami', 'oui'),
-(6, 2, 6, 'collegue', 'non');
+(6, 2, 6, 'collegue', 'non'),
+(7, 1, 3, 'ami', 'oui'),
+(8, 1, 4, 'ami', 'oui'),
+(9, 1, 6, 'collegue', 'non'),
+(10, 5, 2, 'ami', 'oui'),
+(11, 1, 2, 'ami', 'oui'),
+(12, 6, 2, 'collegue', 'non'),
+(13, 3, 1, 'ami', 'oui'),
+(14, 4, 1, 'ami', 'oui'),
+(15, 6, 1, 'collegue', 'non');
 
 -- --------------------------------------------------------
 
@@ -178,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `annees` int(11) NOT NULL COMMENT 'Années d''études',
   PRIMARY KEY (`id_etu`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
 
 --
 -- Déchargement des données de la table `etudiant`
@@ -294,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `profil` (
   KEY `id_fond` (`id_fond`),
   KEY `id_cv` (`id_cv`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations des profils';
 
 --
 -- Déchargement des données de la table `profil`
@@ -352,7 +362,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   UNIQUE KEY `mail` (`mail`),
   UNIQUE KEY `pseudo` (`pseudo`),
   UNIQUE KEY `pseudo_2` (`pseudo`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations des utilisateurs';
 
 --
 -- Déchargement des données de la table `utilisateur`

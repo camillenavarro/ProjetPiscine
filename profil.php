@@ -198,7 +198,7 @@
 
                 <!-- Adresse mail -->
                 <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
-				<a href = "reseau.php"><button>Voir le reseau</button></a>
+                
                 <!-- Etudes et expérience -->
                 <div id="etudes">
                     <h2>Etudes</h2>
@@ -221,11 +221,6 @@
                 <div id="evenements">
                     <h2>Evénements récents</h2>
                 </div>
-
-                <!-- Albums -->
-
-                <!-- Boutons de suppression et de modification pour les administrateurs -->
-                <p><input type="submit" value="Modifier mon profil" name="modification_admin"></p>
                 <!-- Fin de la colonne de droite -->
             </div>
         </div>

@@ -271,7 +271,13 @@
 
                 <!-- Adresse mail -->
                 <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
-				<a href = "reseau.php"><button>Voir le reseau</button></a>
+				
+                <!-- Voir le réseau de ce contact -->
+                <form action="reseau_contact.php" method="post">
+                    <?php $_SESSION['pseudo'] = $pseudo_reseau;?>
+                    <input type="submit" name="reseau_contact" value="Voir le réseau">
+                </form>
+                
                 <!-- Etudes et expérience -->
                 <div id="etudes">
                     <h2>Etudes</h2>
