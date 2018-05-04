@@ -11,9 +11,7 @@
             $index=$i;
         }
     }
-
     $pseudo_reseau = $reseau[$index];
-
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -29,7 +27,6 @@
 	{
 		$id_co = $db_field7['id_user'];
 	}
-
 	
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo_reseau'";
@@ -149,7 +146,6 @@
         //Libérations des résultats de la photo de profil
         $result6->free();
     }
-
 	
 	if($profil_user == false)
 	{
@@ -304,7 +300,9 @@
                 <!-- Albums -->
 
                 <!-- Boutons de suppression et de modification pour les administrateurs -->
-                <p><input type="submit" value="Modifier l'utilisateur" name="modification_admin"></p>
+                <p><form action = "modifier_profil_front.php">
+					<input type="submit" value="Modifier l'utilisateur" name="modification_admin"></p>
+				</form>
                 <p><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></p>
                 <!-- Fin de la colonne de droite -->
             </div>
