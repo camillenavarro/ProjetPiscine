@@ -99,9 +99,9 @@
 			}
 			else
 			{
-				while($db_field3img = $result2img->fetch_assoc())
+				while($db_field3img = $result3img->fetch_assoc())
 				{
-					$photo_collegue[$i] = $db_field2img['nom_fichier'] ;
+					$photo_collegue[$i] = $db_field3img['nom_fichier'] ;
 				}
 			}
 		}
