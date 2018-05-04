@@ -1,6 +1,4 @@
 <?php
-	session_start();
-	$id_user = $_SESSION['id_user'];
 	$ami = array();
 	$collegue = array();
 	$nom_ami = array();
@@ -21,6 +19,14 @@
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
+
+    //Récupération de l'id de l'utilisateur connecté
+    $SQL7 = "SELECT id_user FROM connexion";
+    $result7 = $db_handle->query($SQL7);
+    while ($db_field7 = $result7->fetch_assoc()) { 
+        $id_user = $db_field7["id_user"];
+    }
+
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM contact WHERE id_user = '$id_user'";
     $result = $db_handle->query($SQL);
