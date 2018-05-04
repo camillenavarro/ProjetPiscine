@@ -1,38 +1,43 @@
 <?php
+    session_start();
+    //Déclaration des variables 
+    $pseudo = $_SESSION['pseudo'];
+    $etudiant = false ;
+
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
-
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
-    //Récupération de l'id de l'utilisateur connecté
-    $SQL7 = "SELECT id_user FROM connexion";
-    $result7 = $db_handle->query($SQL7);
-    while ($db_field7 = $result7->fetch_assoc()) { 
-        $id_user = $db_field7["id_user"];
-    }
-
-    //Requête SQL et récupération des résultats
-    $SQL = "SELECT * FROM utilisateur WHERE id_user='$id_user'";
-    $result = $db_handle->query($SQL);
     
-    //Vérification que l'utilisateur existe dans la base de données
-    if($result->num_rows != 1){
-        die ("Vous avez rentré un nom d'utilisateur invalide ou l'utilisateur n'existe pas!");
-    }
-
+	$SQL7 = "SELECT * FROM connexion";
+    $result7 = $db_handle->query($SQL7);
+	
+	while ($db_field7 = $result7->fetch_assoc()) 
+	{
+		$id_co = $db_field7['id_user'];
+	}
+	
+    //Requête SQL et récupération des résultats
+    $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo'";
+    $result = $db_handle->query($SQL);
     //Récupération des données
-    while ($db_field = $result->fetch_assoc()) { 
+    while ($db_field = $result->fetch_assoc()) 
+	{ 
         $id_user = $db_field["id_user"];
+		$_SESSION['id_user']=$id_user ;
         $nom = $db_field["nom"];
         $prenom = $db_field["prenom"];
         $mail = $db_field["mail"];
         $genre = $db_field["genre"];
-        $fonction = $db_field["fonction"];
-        
+		$fonction = $db_field["fonction"];
+		
+		if($id_user == $id_co) { $profil_user = true ; }
+			else { $profil_user = false ; }
+		
+		
         //Deux types de fonctions: étudiant ou employé
         if($fonction == "Etudiant" or $fonction == "Apprenti"){
             $etudiant = true;
@@ -54,7 +59,6 @@
         
         $droit = $db_field["droit"];
     }
-
     //Si la personne est un étudiant
     if($etudiant == true){
         //Requête SQL
@@ -85,7 +89,6 @@
         //Libérations des résultats
         $result3->free();
     }
-
     //Requêtes SQL pour informations du profil
     $SQL4 = "SELECT * FROM profil WHERE id_user='$id_user'";
     $result4 = $db_handle->query($SQL4);
@@ -97,14 +100,11 @@
         $experience = $db_field4["experience"];
         $etude_historique = $db_field4["etude"];    
     }
-
     //Libérations des résultats du profil
     $result4->free();
-
     //Variables des photos
     $photo_profil = null;
     $photo_fond = null;
-
     //Si l'utilisateur possède une photo de profil
     if($id_photo != null){
         //Requête SQL pour la photo de profil
@@ -115,7 +115,6 @@
         while ($db_field5 = $result5->fetch_assoc()) { 
             $photo_profil = $db_field5["nom_fichier"];   
         }
-
         //Libérations des résultats de la photo de profil
         $result5->free();
     }
@@ -136,11 +135,30 @@
         while ($db_field6 = $result6->fetch_assoc()) { 
             $photo_fond = $db_field6["nom_fichier"];   
         }
-
         //Libérations des résultats de la photo de profil
         $result6->free();
     }
 
+	
+	if($profil_user == false)
+	{
+		$SQL8 = "SELECT * FROM contact WHERE id_user = '$id_co'";
+		$result8 = $db_handle->query($SQL8) ;
+		
+		$relation = "aucune" ;
+		while($db_field8 = $result8->fetch_assoc())
+		{
+			if($db_field8['id_user_contact'] == $id_user)
+			{
+				if($db_field8['type'] == "ami") 
+					$relation = "ami" ;
+				else 	
+					$relation = "collegue" ;
+			}
+		}
+		$result8->free();
+	}		
+	
     //Libération des résultats
     $result->free();
         
@@ -192,13 +210,44 @@
                 </p>
 
                 <!-- Relation -->
-                <p id="relation"></p>
+                <p id="relation">
+					<?php if($profil_user == false)
+						{
+							if($relation == "aucune")
+							{
+					?>
+					<?php echo $prenom; ?> ne fait pas partie de votre réseau.
+					<!-- Ajouter au réseau -->
+					<p><input type="submit" value="Ajouter au réseau" name="ajout_reseau"></p>
+					<?php 
+							}
+							else 
+							{
+								if($relation == "ami")
+								{
+					?>
+					Vous et <?php echo $prenom; ?> êtes amis.
+					<?php 
+								}
+								else
+								{
+					?>
+					Vous et <?php echo $prenom; ?> êtes collègues.
+					<?php 
+								}
+					?>
+					<!-- Envoyer un message -->
+					<p><input type="submit" value="Envoyer un message" name="message"></p>
 
-                <!-- Envoyer un message -->
-                <p><input type="submit" value="Envoyer un message" name="message"></p>
-
-                <!-- Supprimer du réseau -->
-                <p><input type="submit" value="Supprimer du réseau" name="suppression_reseau"></p>
+					<!-- Supprimer du réseau -->
+					<p><input type="submit" value="Supprimer du réseau" name="suppression_reseau"></p>
+					<?php
+							}
+						}
+					?>
+				</p>
+				
+                
 
                 <!-- Fin de la colonne de gauche -->
             </div>
@@ -211,8 +260,7 @@
 
                 <!-- Adresse mail -->
                 <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
-                
-
+				<a href = "reseau.php"><button>Voir le reseau</button></a>
                 <!-- Etudes et expérience -->
                 <div id="etudes">
                     <h2>Etudes</h2>

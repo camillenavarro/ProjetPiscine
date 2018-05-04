@@ -6,9 +6,11 @@
 	$nom_ami = array();
 	$prenom_ami = array();
 	$photo_ami = array();
+	$pseudo_ami = array();
 	$nom_collegue = array();
 	$prenom_collegue = array();
 	$photo_collegue = array();
+	$pseudo_collegue = array();
 	$i = 0 ;
 	$j = 0 ;
 	
@@ -27,28 +29,28 @@
 	{
 		if($db_field['type'] == "ami")
 		{
-			$ami[$i] = $db_field['pseudo_contact'] ;
+			$ami[$i] = $db_field['id_user_contact'] ;
 			$i ++ ;
 		}
 		else
 		{
-			$collegue[$j] = $db_field['pseudo_contact'] ;
+			$collegue[$j] = $db_field['id_user_contact'] ;
 			$j++;
 		}
 	}
 	
 	for($i = 0 ; $i < sizeof($ami) ; $i++)
 	{
-		$SQL2 = "SELECT * FROM utilisateur WHERE pseudo = '$ami[$i]' ";
+		$SQL2 = "SELECT * FROM utilisateur WHERE id_user = '$ami[$i]' ";
 		$result2 = $db_handle->query($SQL2);
 		
 		while ($db_field2 = $result2->fetch_assoc()) 
 		{
 			$nom_ami[$i] = $db_field2['nom'] ;
 			$prenom_ami[$i] = $db_field2['prenom'] ;
-			$id_user = $db_field2['id_user'] ;
+			$pseudo_ami[$i] = $db_field2['pseudo'] ;
 			
-			$SQL2img = "SELECT * FROM media WHERE id_user = '$id_user' AND titre = 'Profil' ";
+			$SQL2img = "SELECT * FROM media WHERE id_user = '$ami[$i]' AND titre = 'Profil' ";
 			$result2img = $db_handle->query($SQL2img);	
 			
 			if($result2img->num_rows != 1) 
@@ -67,15 +69,15 @@
 	}
 	for($i = 0 ; $i < sizeof($collegue) ; $i++)
 	{
-		$SQL3 = "SELECT * FROM utilisateur WHERE pseudo = '$collegue[$i]' ";
+		$SQL3 = "SELECT * FROM utilisateur WHERE id_user = '$collegue[$i]' ";
 		$result3 = $db_handle->query($SQL3);
 		
 		while ($db_field3 = $result3->fetch_assoc()) 
 		{
 			$nom_collegue[$i] = $db_field3['nom'] ;
 			$prenom_collegue[$i] = $db_field3['prenom'] ;
-			$id_user = $db_field3['id_user'] ;
-			$SQL3img = "SELECT * FROM media WHERE id_user = '$id_user' AND titre = 'Profil' ";
+			$pseudo_collegue[$i] = $db_field3['pseudo'] ;
+			$SQL3img = "SELECT * FROM media WHERE id_user = '$collegue[$i]' AND titre = 'Profil' ";
 			$result3img = $db_handle->query($SQL3img);	
 			
 			if($result3img->num_rows != 1) 
@@ -99,15 +101,14 @@
 		<meta charset = "uft-8" />
 	</head>
 	<body>
-        
-            <a href=""><button>Accueil</button></a>
-            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-            <a href="profil.php"><button>Voir mon profil</button></a>
-            <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href=""><button>Mes notifications</button></a>
-            <a href=""><button>Mes offres d'emplois</button></a>
-            <a href="deconnexion.php"><button>Déconnexion</button></a>
-        
+		<a href=""><button>Accueil</button></a>
+        <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
+        <a href="profil.php"><button>Voir mon profil</button></a>
+        <a href="reseau.php"><button>Mon réseau</button></a>
+        <a href=""><button>Mes notifications</button></a>
+        <a href=""><button>Mes offres d'emplois</button></a>
+        <a href="deconnexion.php"><button>Déconnexion</button></a>
+			
 		<h1>Réseau</h1> 
 		<h2>Amis</h1>
 		<table>
@@ -129,7 +130,7 @@
 				?>
 				<br><br>
 				<?php 
-					$_SESSION['pseudo'] = $ami[$i];
+					$_SESSION['pseudo'] = $pseudo_ami[$i];
 				?>
 				<a href = "profil.php"><button>Voir le profil</button></a>
 				</td>
@@ -158,6 +159,11 @@
 					echo "$prenom_collegue[$i] ";  
 					echo " $nom_collegue[$i]"; 
 				?>
+				<br><br>
+				<?php 
+					$_SESSION['pseudo'] = $pseudo_collegue[$i];
+				?>
+				<a href = "profil.php"><button>Voir le profil</button></a>
 				</td>
 			</tr>
 			<?php
