@@ -301,9 +301,9 @@
 
                 <!-- Boutons de suppression et de modification pour les administrateurs -->
                 <p><form action = "modifier_profil_front.php">
-					<input type="submit" value="Modifier l'utilisateur" name="modification_admin"></p>
-				</form>
-                <p><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></p>
+					<input type="submit" value="Modifier l'utilisateur" name="modification_admin">
+				</form></p>
+                <p><form action = "supprimer_user.php"><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></form></p>
                 <!-- Fin de la colonne de droite -->
             </div>
         </div>
