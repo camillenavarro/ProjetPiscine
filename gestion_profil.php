@@ -92,8 +92,22 @@
     while ($db_field4 = $result4->fetch_assoc()) { 
         $id_photo = $db_field4["id_photo"];
         $id_fond = $db_field4["id_fond"];
-        $experience = $db_field4["experience"];
-        $etude_historique = $db_field4["etude"];    
+        $id_cv = $db_field4["id_cv"];
+        
+        if($db_field4["experience"] != null){
+            $experience = $db_field4["experience"];
+        }
+        else {
+            $experience = "Vous n'avez pas encore précisé vos expériences professionnelles.";
+        }
+        
+        if($db_field4["etude"] != null){
+            $etude_historique = $db_field4["etude"];
+        }
+        else {
+            $etude_historique = "Vous n'avez pas encore précisé votre parcours scolaire.";
+        }
+        
     }
     //Libérations des résultats du profil
     $result4->free();
@@ -136,6 +150,24 @@
     else{
         $photo_fond = "background.png";
     }
+
+    //Si l'utilisateur a déjà déposé un CV
+    if($id_cv != null){
+        //Requête SQL pour la photo de profil
+        $SQL6 = "SELECT * FROM cv WHERE id_cv='$id_cv'";
+        $result6 = $db_handle->query($SQL6);
+    
+        //Récupération des résultats
+        while ($db_field6 = $result6->fetch_assoc()) { 
+            $CV = $db_field6["nom_fichier"];   
+        }
+        //Libérations des résultats de la photo de profil
+        $result6->free();
+    }
+    else{
+        $CV = "Vous n'avez pas encore déposé de CV.";
+    }
+
     //Libération des résultats
     $result->free();
         
@@ -154,7 +186,7 @@
         <div id="conteneur">
             
             <div class="menu">
-                <a href=""><button>Accueil</button></a>
+                <a href="accueil.php"><button>Accueil</button></a>
                 <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
                 <a href="profil.php"><button>Voir mon profil</button></a>
                 <a href="reseau.php"><button>Mon réseau</button></a>
@@ -179,7 +211,7 @@
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
 				Modifier ma photo : <input type="file" name="uploadFile">
 				<br><input type="submit" name=sub value="Enregistrer">
-			</form></p>
+			</form>
                 </div>
             
                 <!-- Informations -->
@@ -249,13 +281,13 @@
                 <p><a href="modifier_etudes_experience_front.php"><button>Modifier mon parcours scolaire et mes expérience</button></a></p>
                 
                 <!-- Modifier le CV -->
-                <p>
+                <h2>CV</h2>
+                <p><?php echo $CV;?></p>
 			<form enctype="multipart/form-data" action="modifier_cv.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
 				Modifier mon CV : <input type="file" name="uploadFile">
 				<br><input type="submit" name=sub value="Enregistrer">
 				</form>
-		</p>
                 <!-- Fin de la colonne centrale -->
             </div>
             
@@ -270,12 +302,12 @@
                 <div id="photo_fond">
                     <h2>Image de fond</h2>
                     <img src="image/<?php echo $photo_fond; ?>" alt="Fond d'écran de mon profil" height="400" width="500">
-                    <p>
+                    
 			<form enctype="multipart/form-data" action="modifier_photo_fond.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
 				Modifier ma photo de fond : <input type="file" name="uploadFile">
 				<br><input type="submit" name=sub value="Enregistrer">
-			</form></p>
+			</form>
                 </div>
                 
                 <!-- Boutons de modification pour les administrateurs -->

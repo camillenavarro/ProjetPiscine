@@ -108,7 +108,7 @@
 			
 			$_SESSION['pseudo'] = $pseudo ;
 			
-			header("Location: profil.php");				
+			header("Location: accueil.php");				
 			
 			mysqli_close($db_handle);
 		}

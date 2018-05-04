@@ -27,10 +27,12 @@
     header('Content-Type: text/html; charset=utf-8');
 
     //Récupération de l'id de l'utilisateur connecté
-    $SQL7 = "SELECT id_user FROM utilisateur WHERE pseudo='$pseudo'";
+    $SQL7 = "SELECT * FROM utilisateur WHERE pseudo='$pseudo'";
     $result7 = $db_handle->query($SQL7);
     while ($db_field7 = $result7->fetch_assoc()) { 
         $id_user = $db_field7["id_user"];
+        $nom_user = $db_field7["nom"];
+        $prenom_user = $db_field7["prenom"];
     }
 
     //Requête SQL et récupération des résultats
@@ -109,11 +111,11 @@
 ?>
 <html>
 	<head>
-		<title>Projet Piscine</title>
+		<title>Réseau de <?php echo $prenom_user;?> <?php echo $nom_user;?></title>
 		<meta charset = "uft-8" />
 	</head>
 	<body>
-		<a href=""><button>Accueil</button></a>
+		<a href="accueil.php"><button>Accueil</button></a>
         <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
         <a href="profil.php"><button>Voir mon profil</button></a>
         <a href="reseau.php"><button>Mon réseau</button></a>
@@ -121,7 +123,7 @@
         <a href=""><button>Mes offres d'emplois</button></a>
         <a href="deconnexion.php"><button>Déconnexion</button></a>
 			
-		<h1>Réseau</h1> 
+		<h1>Réseau de <?php echo $prenom_user;?> <?php echo $nom_user;?></h1> 
 		<h2>Amis</h2>
 		<table>
 		<tbody>

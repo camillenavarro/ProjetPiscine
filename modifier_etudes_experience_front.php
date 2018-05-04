@@ -39,7 +39,7 @@
         <div class="conteneur">
             
             <div class="menu">
-                <a href=""><button>Accueil</button></a>
+                <a href="accueil.php"><button>Accueil</button></a>
                 <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
                 <a href="profil.php"><button>Voir mon profil</button></a>
                 <a href="reseau.php"><button>Mon réseau</button></a>

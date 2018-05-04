@@ -108,11 +108,11 @@
 ?>
 <html>
 	<head>
-		<title>Projet Piscine</title>
+		<title>Mon réseau</title>
 		<meta charset = "uft-8" />
 	</head>
 	<body>
-		<a href=""><button>Accueil</button></a>
+		<a href="accueil.php"><button>Accueil</button></a>
         <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
         <a href="profil.php"><button>Voir mon profil</button></a>
         <a href="reseau.php"><button>Mon réseau</button></a>
@@ -120,7 +120,7 @@
         <a href=""><button>Mes offres d'emplois</button></a>
         <a href="deconnexion.php"><button>Déconnexion</button></a>
 			
-		<h1>Réseau</h1> 
+		<h1>Mon réseau</h1> 
 		<h2>Amis</h2>
 		<table>
 		<tbody>

@@ -151,7 +151,7 @@
         <!-- Div principal -->
         <div class="conteneur">
             
-            <a href=""><button>Accueil</button></a>
+            <a href="accueil.php"><button>Accueil</button></a>
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
             <a href="profil.php"><button>Voir mon profil</button></a>
             <a href="reseau.php"><button>Mon réseau</button></a>
@@ -209,9 +209,9 @@
                     <h2>Expérience professionnelle</h2>
                     <p><?php echo $experience; ?></p>
                 </div>
-
+                
                 <!-- Voir le CV -->
-                <p><input type="submit" value="Ajouter mon CV"></p>
+                <p><input type="submit" value="Voir le CV"></p>
                 <!-- Fin de la colonne centrale -->
             </div>
             

@@ -183,7 +183,7 @@
         <!-- Div principal -->
         <div class="conteneur">
             
-            <a href=""><button>Accueil</button></a>
+            <a href="accueil.php"><button>Accueil</button></a>
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
             <a href="profil.php"><button>Voir mon profil</button></a>
             <a href="reseau.php"><button>Mon réseau</button></a>
@@ -276,12 +276,12 @@
                 
                 <!-- Etudes et expérience -->
                 <div id="etudes">
-                    <h2>Etudes</h2>
+                    <h2>Parcours scolaire</h2>
                     <p><?php echo $etude_historique; ?></p>
                 </div>
 
                 <div id="experience">
-                    <h2>Expérience</h2>
+                    <h2>Expérience professionnelle</h2>
                     <p><?php echo $experience; ?></p>
                 </div>
 

@@ -32,7 +32,7 @@
             //On update la table connexion pour y inscrire l'id de l'utilisateur présentement connecté
             $SQL2 = "INSERT INTO `connexion`(`id_user`) VALUES ('$id_user')";
 		    $db_handle->query($SQL2);
-			header('Location: profil.php');
+			header('Location: accueil.php');
 		}
 	}
 	else

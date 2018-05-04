@@ -50,6 +50,8 @@
 			$SQL6 = "UPDATE profil SET id_cv = '$id' WHERE id_user = '$id_user' ";
 			$db_handle->query($SQL6) ;
 		}
+        
+        header("Location: gestion_profil.php");
 	}
 	else
 		echo "$error";

@@ -29,7 +29,7 @@
 			$id_photo = $db_field2['id_photo'];
 		}
 		
-		if($id_photo != "NULL")
+		if($id_photo != NULL)
 		{
 			$SQL3 = "UPDATE media SET nom_fichier = '$photo' WHERE id_media = '$id_photo'" ;
 			$db_handle->query($SQL3);
@@ -50,6 +50,8 @@
 			$SQL6 = "UPDATE profil SET id_photo = '$id_media' WHERE id_user = '$id_user' ";
 			$db_handle->query($SQL6) ;
 		}
+        
+        header("Location: gestion_profil.php");
 	}
 	else
 		echo "$error";
