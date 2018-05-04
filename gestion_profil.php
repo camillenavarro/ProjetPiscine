@@ -4,11 +4,9 @@
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); 
-
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
     //Récupération de l'id de l'utilisateur connecté
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
@@ -92,22 +90,8 @@
     while ($db_field4 = $result4->fetch_assoc()) { 
         $id_photo = $db_field4["id_photo"];
         $id_fond = $db_field4["id_fond"];
-        $id_cv = $db_field4["id_cv"];
-        
-        if($db_field4["experience"] != null){
-            $experience = $db_field4["experience"];
-        }
-        else {
-            $experience = "Vous n'avez pas encore précisé vos expériences professionnelles.";
-        }
-        
-        if($db_field4["etude"] != null){
-            $etude_historique = $db_field4["etude"];
-        }
-        else {
-            $etude_historique = "Vous n'avez pas encore précisé votre parcours scolaire.";
-        }
-        
+        $experience = $db_field4["experience"];
+        $etude_historique = $db_field4["etude"];    
     }
     //Libérations des résultats du profil
     $result4->free();
@@ -150,24 +134,6 @@
     else{
         $photo_fond = "background.png";
     }
-
-    //Si l'utilisateur a déjà déposé un CV
-    if($id_cv != null){
-        //Requête SQL pour la photo de profil
-        $SQL6 = "SELECT * FROM cv WHERE id_cv='$id_cv'";
-        $result6 = $db_handle->query($SQL6);
-    
-        //Récupération des résultats
-        while ($db_field6 = $result6->fetch_assoc()) { 
-            $CV = $db_field6["nom_fichier"];   
-        }
-        //Libérations des résultats de la photo de profil
-        $result6->free();
-    }
-    else{
-        $CV = "Vous n'avez pas encore déposé de CV.";
-    }
-
     //Libération des résultats
     $result->free();
         
@@ -207,11 +173,11 @@
                 <div id="photo_profil">
                     <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
                     <p>
-			<form enctype="multipart/form-data" action="modifier_photo_profil.php" method="post">
+			<form enctype="multipart/form-data" action="modifier_photo.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
-				Modifier ma photo : <input type="file" name="uploadFile">
-				<br><input type="submit" name=sub value="Enregistrer">
-			</form>
+				<input type="file" name="uploadFile">
+				<br><input type="submit" name="type" value="Modifier ma photo">
+			</form></p>
                 </div>
             
                 <!-- Informations -->
@@ -281,13 +247,13 @@
                 <p><a href="modifier_etudes_experience_front.php"><button>Modifier mon parcours scolaire et mes expérience</button></a></p>
                 
                 <!-- Modifier le CV -->
-                <h2>CV</h2>
-                <p><?php echo $CV;?></p>
+                <p>
 			<form enctype="multipart/form-data" action="modifier_cv.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
 				Modifier mon CV : <input type="file" name="uploadFile">
 				<br><input type="submit" name=sub value="Enregistrer">
 				</form>
+		</p>
                 <!-- Fin de la colonne centrale -->
             </div>
             
@@ -302,12 +268,12 @@
                 <div id="photo_fond">
                     <h2>Image de fond</h2>
                     <img src="image/<?php echo $photo_fond; ?>" alt="Fond d'écran de mon profil" height="400" width="500">
-                    
-			<form enctype="multipart/form-data" action="modifier_photo_fond.php" method="post">
+                    <p>
+			<form enctype="multipart/form-data" action="modifier_photo.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
-				Modifier ma photo de fond : <input type="file" name="uploadFile">
-				<br><input type="submit" name=sub value="Enregistrer">
-			</form>
+				<input type="file" name="uploadFile">
+				<br><input type="submit" name="type" value="Modifier mon fond">
+			</form></p>
                 </div>
                 
                 <!-- Boutons de modification pour les administrateurs -->
