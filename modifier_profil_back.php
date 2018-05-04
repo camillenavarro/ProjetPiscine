@@ -2,7 +2,6 @@
     //On récupère le pseudo du compte
     session_start();
     $pseudo = $_SESSION['pseudo'];
-
     //On récupère les données relatives au mot de passe
     $modif_pseudo = isset($_POST["modif_pseudo"]) ? $_POST["modif_pseudo"] : ""; 
     $modif_nom = isset($_POST["modif_nom"]) ? $_POST["modif_nom"] : ""; 
@@ -16,34 +15,27 @@
     $modif_annees = isset($_POST["modif_annees"]) ? $_POST["modif_annees"] : ""; 
     $modif_entreprise = isset($_POST["modif_entreprise"]) ? $_POST["modif_entreprise"] : ""; 
 	$error = "" ;
-
     //On vérifie qu'aucune ligne ne soit vide
     if($modif_pseudo == "") { $error .= "Veuillez saisir un pseudo!<br />";}
     if($modif_nom == "") { $error .= "Veuillez saisir un nom!<br />";}
 	if($modif_prenom == "") { $error .= "Veuillez saisir un prénom!<br />";}
     if($modif_mail == "") { $error .= "Veuillez saisir un mail!<br />";}
     if($modif_fonction == "") { $error .= "Veuillez saisir une occupation!<br />";}
-
     //Si l'utilisateur est maintenant un employé
     if($modif_fonction == "Employe" and $modif_poste == "") { $error .= "Veuillez saisir un poste!<br />";}
-
     //Si l'utilisateur est maintenant un apprenti
     if($modif_fonction == "Apprenti" and $modif_entreprise == "") { $error .= "Veuillez saisir une entreprise!<br />";}
-
     //Si la variable error est toujours égale à sa valeur d'initialisation ("") alors il n'y a aucun champ vide
     if ($error != "") { 
         die ("$error<br/>"); //On affiche l'erreur en question
     }
-
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
-
     //Sélectionner l'id de l'utilisateur
     $SQL = "SELECT * from utilisateur where pseudo='$pseudo'";
     $result = $db_handle->query($SQL);
-
     //Récupérer l'id_user
     while ($db_field = $result->fetch_assoc()) { 
         $id_user = $db_field["id_user"];
@@ -51,25 +43,21 @@
         $mail_old = $db_field["mail"];
         $pseudo_old = $db_field["pseudo"];
     }
-
     //On vérifie que la nouvelle adresse mail n'existe pas déjà dans la BDD
     if($mail_old != $modif_mail){ //Si l'utilisateur a décidé de changer son adresse mail
         //On recherche l'adresse mail parmis tous les utilisateurs
         $SQL11 = "SELECT id_user from utilisateur where mail='$modif_mail'";
         $result11 = $db_handle->query($SQL11);
-
         //On affiche un message d'erreur si c'est le cas
         if($result11->num_rows != 0){
             die ("Cette adresse mail existe déjà!");
         }
     }
-
     //On vérifie que le nouveau pseudo n'existe pas déjà dans la BDD
     if($pseudo_old != $modif_pseudo){ //Si l'utilisateur a décidé de changer son adresse mail
         //On recherche l'adresse mail parmis tous les utilisateurs
         $SQL12 = "SELECT id_user from utilisateur where pseudo='$modif_pseudo'";
         $result12 = $db_handle->query($SQL12);
-
         //On affiche un message d'erreur si c'est le cas
         if($result12->num_rows != 0){
             die ("Ce pseudo existe déjà!");
@@ -81,11 +69,9 @@
             $db_handle->query($SQL13);
         }
     }
-
     //Mettre à jour la table utilisateur
     $SQL2 = "UPDATE utilisateur SET nom='$modif_nom', prenom='$modif_prenom', mail='$modif_mail', genre='$modif_genre', naissance='$modif_naissance', fonction='$modif_fonction'  WHERE id_user='$id_user'";
     $db_handle->query($SQL2);
-
     //Cas n°1 : un etudiant reste un étudiant ou devient un apprenti
     if($fonction_old == "Etudiant" and ($modif_fonction == "Etudiant" or $modif_fonction == "Apprenti")){
         //Cas n°1-1: un étudiant reste un étudiant
@@ -138,11 +124,8 @@
         $SQL10 = "UPDATE employe SET poste='$modif_poste' WHERE id_user='$id_user'";
         $db_handle->query($SQL10);
     }
-
     //Retour à la gestion du profil
-    header('Location: index_testFiona.php');
-
+    header('Location: gestion_profil.php');
     //Fermer la connexion
     $db_handle->close();
-
 ?>
