@@ -37,14 +37,13 @@
 	if($genre != "") { $genre = "'$genre'" ;}
 		else { $genre = "NULL" ;}
 	
-	$database = "piscine"; //Nom de la BDD
-	$db_handle = mysqli_connect("localhost", "root", ""); //Connexion au serveur
-	$db_found = mysqli_select_db($db_handle, $database); //Renvoie un booléen: true (BDD trouvée), false sinon
+	//Connexion à la BDD
+    $database = "piscine"; //Nom de la BDD
+    $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
+    $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
 		
-	if($db_found)
-	{
 		$SQL = "SELECT pseudo, mail FROM utilisateur" ;
-		$result = mysqli_query($db_handle, $SQL) ;
+		$result = $db_handle->query($SQL) ;
 		
 		
 		while($liste = mysqli_fetch_array($result))
@@ -57,65 +56,53 @@
 		{
 			//Insérer dans la table utilisateur
 			
-			//Récupération de l'id_user (nombre d'utilisateurs + 1)
-			$SQLuser = "SELECT COUNT(id_user) FROM utilisateur" ;
-			$result_user = mysqli_query ($db_handle, $SQLuser) ;
-			$count_user = mysqli_fetch_array($result_user);
-			$id = $count_user['COUNT(id_user)'] + 1;
 			//Requête d'insertion
-			$SQL1 = "INSERT INTO utilisateur VALUES ('$id', '$pseudo', '$nom', '$prenom', '$mail', '$mdp', '$fonction', $naissance, $genre, 'auteur')";
-			mysqli_query($db_handle, $SQL1); 
+			$SQL1 = "INSERT INTO utilisateur (pseudo,nom,prenom,mail,mdp,fonction,naissance,genre,droit) VALUES ('$pseudo', '$nom', '$prenom', '$mail', '$mdp', '$fonction', $naissance, $genre, 'auteur')";
+			$db_handle->query($SQL1); 
+			
+			$SQL2 = "SELECT id_user FROM utilisateur WHERE pseudo = '$pseudo'" ;
+			$result2 = $db_handle->query($SQL2);
+			
+			while($db_field2 = $result2->fetch_assoc())
+			{
+				$id = $db_field2['id_user'];
+			}
 			
 			//Insérer dans la table profil
 			
 			//Récupération de l'id_user (nombre d'utilisateurs + 1)
-			$SQLprofil = "SELECT COUNT(id_profil) FROM profil" ;
-			$result_profil = mysqli_query ($db_handle, $SQLprofil) ;
-			$count_profil = mysqli_fetch_array($result_profil);
-			$id_profil = $count_profil['COUNT(id_profil)'] + 1;
+			
 			//Requête d'insertion
-			$SQL2 = "INSERT INTO profil VALUES ('$id_profil', '$id', NULL, NULL, NULL, NULL, NULL, 'public')";
-			mysqli_query($db_handle, $SQL2); 
+			$SQL3 = "INSERT INTO profil (id_user, acces) VALUES ('$id', 'public')";
+			$db_handle->query($SQL3); 
 			
 			if($fonction == "Employe") 
 			{
-				$SQLcount_employe = "SELECT COUNT(id_employe) FROM employe" ;
-				$result_emp = mysqli_query ($db_handle, $SQLcount_employe) ;
-				$count_emp = mysqli_fetch_array($result_emp);
-				$id_emp = $count_emp['COUNT(id_employe)'] + 1;
-				$SQLemploye = "INSERT INTO employe VALUES ('$id_emp', '$id', '$emploi')" ;
-				mysqli_query($db_handle, $SQLemploye);
+				$SQL4 = "INSERT INTO employe (id_user,poste) VALUES ('$id', '$emploi')" ;
+				$db_handle->query($SQL4);
 			}
 			else
 			{				
-				$SQLcount_etudiant = "SELECT COUNT(id_etu) FROM etudiant" ;
-				$result_etu = mysqli_query ($db_handle, $SQLcount_etudiant) ;
-				$count_etu = mysqli_fetch_array($result_etu);
-				$id_etu = $count_etu['COUNT(id_etu)'] + 1;
-				$SQLetudiant = "INSERT INTO etudiant VALUES ('$id_etu', '$id', '$degre', '$annee')" ;
-				mysqli_query($db_handle, $SQLetudiant);
+				$SQL5 = "INSERT INTO etudiant (id_user, etudes, annees) VALUES ('$id', '$degre', '$annee')" ;
+				$db_handle->query($SQL5);
 				
 				if($fonction == "Apprenti")
 				{
-					$SQLcount_apprenti = "SELECT COUNT(id_apprenti) FROM apprenti" ;
-					$result_app = mysqli_query ($db_handle, $SQLcount_apprenti) ;
-					$count_app = mysqli_fetch_array($result_app);
-					$id_app = $count_app['COUNT(id_apprenti)'] + 1;
-					$SQLapprenti = "INSERT INTO apprenti VALUES ('$id_app','$id', '$entreprise')" ;
-					mysqli_query($db_handle, $SQLapprenti);
+					$SQL6 = "INSERT INTO apprenti (id_user,entreprise) VALUES ('$id', '$entreprise')" ;
+					$db_handle->query($SQL6);
 				}
 			}
 			
+			$SQL7 = "INSERT INTO connexion VALUES ('$id')";
+			$db_handle->query($SQL7);
+			
 			$_SESSION['pseudo'] = $pseudo ;
 			
-			header("Location: accueil.php");				
+			header("Location: accueil.php");			
 			
 			mysqli_close($db_handle);
 		}
 		else 
 			echo "$error" ;
-	}
-	else
-		echo "Base de données introuvable!";
 	
 ?>
