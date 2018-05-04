@@ -3,11 +3,9 @@
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); 
-
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
     //Récupération de l'id de l'utilisateur connecté
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
@@ -30,7 +28,6 @@
         $pseudo = $db_field["pseudo"];
         $genre = $db_field["genre"];
     }
-
     //Requêtes SQL pour informations du profil
     $SQL4 = "SELECT * FROM profil WHERE id_user='$id_user'";
     $result4 = $db_handle->query($SQL4);
@@ -42,11 +39,9 @@
     }
     //Libérations des résultats du profil
     $result4->free();
-
     //Variables des photos
     $photo_profil = null;
     $photo_fond = null;
-
     //Si l'utilisateur possède une photo de profil
     if($id_photo != null){
         //Requête SQL pour la photo de profil
@@ -125,7 +120,9 @@
             </div>
             
             <div id="acceuil_droite">
-            
+            <form action = "reception_demande_front.php" method = "post">
+				<input type = "submit" value = "Voir les demandes d'amis">
+			</form>
             </div>
         
         </div>
