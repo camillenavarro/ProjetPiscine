@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 mai 2018 à 12:24
+-- Généré le :  ven. 04 mai 2018 à 18:36
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `connexion` (
 --
 
 INSERT INTO `connexion` (`id_user`) VALUES
-(3);
+(2);
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id_contact`),
   KEY `id_user` (`id_user`),
   KEY `id_user_contact` (`id_user_contact`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
 
 --
 -- Déchargement des données de la table `contact`
@@ -101,15 +101,13 @@ INSERT INTO `contact` (`id_contact`, `id_user`, `id_user_contact`, `type`, `rest
 (4, 2, 5, 'ami', 'oui'),
 (5, 2, 1, 'ami', 'oui'),
 (6, 2, 6, 'collegue', 'non'),
-(7, 1, 3, 'ami', 'oui'),
-(8, 1, 4, 'ami', 'oui'),
 (9, 1, 6, 'collegue', 'non'),
 (10, 5, 2, 'ami', 'oui'),
 (11, 1, 2, 'ami', 'oui'),
 (12, 6, 2, 'collegue', 'non'),
-(13, 3, 1, 'ami', 'oui'),
-(14, 4, 1, 'ami', 'oui'),
-(15, 6, 1, 'collegue', 'non');
+(15, 6, 1, 'collegue', 'non'),
+(16, 2, 3, 'ami', 'non'),
+(17, 3, 2, 'ami', 'non');
 
 -- --------------------------------------------------------
 
@@ -149,7 +147,29 @@ CREATE TABLE IF NOT EXISTS `cv` (
   `id_cv` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire du CV',
   `nom_fichier` varchar(30) NOT NULL COMMENT 'Nom du fichier contenant le CV',
   PRIMARY KEY (`id_cv`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations sur les CV des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='Informations sur les CV des utilisateurs';
+
+--
+-- Déchargement des données de la table `cv`
+--
+
+INSERT INTO `cv` (`id_cv`, `nom_fichier`) VALUES
+(1, 'CV.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `demande_ami`
+--
+
+DROP TABLE IF EXISTS `demande_ami`;
+CREATE TABLE IF NOT EXISTS `demande_ami` (
+  `id_demande` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL COMMENT 'id de celui qui envoie la demande',
+  `id_contact` int(11) NOT NULL COMMENT 'id de celui qui recoit la demande',
+  `type` text NOT NULL COMMENT 'ami ou collegue',
+  PRIMARY KEY (`id_demande`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -198,7 +218,6 @@ INSERT INTO `etudiant` (`id_etu`, `id_user`, `etudes`, `annees`) VALUES
 (1, 1, 'license', 3),
 (2, 2, 'license', 3),
 (3, 3, 'license', 3),
-(4, 4, 'license', 3),
 (5, 5, 'license', 3);
 
 -- --------------------------------------------------------
@@ -218,19 +237,20 @@ CREATE TABLE IF NOT EXISTS `media` (
   `date` date DEFAULT NULL COMMENT 'Date ou a été pris le média',
   PRIMARY KEY (`id_media`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
 
 --
 -- Déchargement des données de la table `media`
 --
 
 INSERT INTO `media` (`id_media`, `id_user`, `type`, `nom_fichier`, `titre`, `lieu`, `date`) VALUES
-(4, 1, 'photo', 'camille_navarro.jpg', 'Profil', NULL, NULL),
+(4, 1, 'photo', 'IMG_3802.JPG', 'Profil', NULL, NULL),
 (5, 2, 'photo', 'roman_gouge.jpg', 'Profil', NULL, NULL),
 (6, 3, 'photo', 'fiona_chuet.jpg', 'Profil', NULL, NULL),
 (7, 1, 'photo', 'carnet.jpg', 'Fond', NULL, NULL),
 (8, 2, 'photo', 'bois.jpg', 'Fond', NULL, NULL),
-(9, 3, 'photo', 'montagne.jpg', 'Fond', NULL, NULL);
+(9, 3, 'photo', 'montagne.jpg', 'Fond', NULL, NULL),
+(10, 7, 'photo', 'truc.jpg', 'Fond', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,10 +331,9 @@ CREATE TABLE IF NOT EXISTS `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `id_user`, `id_photo`, `id_fond`, `id_cv`, `experience`, `etude`, `acces`) VALUES
-(1, 1, 4, 7, NULL, 'Regarde Netflix depuis qu\'elle est bébé.', 'Lycée dans un coin perdu puis ECE.', 'publique'),
+(1, 1, 4, 7, 1, 'Regarde Netflix depuis qu\'elle est bébé.', 'Lycée dans un coin perdu puis prepa et enfin ECE.', 'publique'),
 (2, 2, 5, 8, NULL, 'Chapi-chapo!', 'Lycée puis ECE.', 'prive'),
 (3, 3, 6, 9, NULL, 'A survécu en Picardie.', 'Lycée à Paris puis ECE.', 'restreint'),
-(4, 4, NULL, NULL, NULL, 'Spécialiste des chiens.', 'Présentement à la recherche d\'un appartement dans le Poitou.', 'publique'),
 (5, 5, NULL, NULL, NULL, 'Secrétaire générale d\'ECE International.', 'Etudes de communication lui permettant de connaître tout l\'ECE.', 'publique'),
 (6, 6, NULL, NULL, NULL, 'Enseignant à l\'ECE Paris.', 'Un certain lycée.', 'publique'),
 (7, 7, NULL, NULL, NULL, NULL, NULL, 'public');
@@ -369,10 +388,9 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`id_user`, `pseudo`, `nom`, `prenom`, `mail`, `mdp`, `fonction`, `naissance`, `genre`, `droit`) VALUES
-(1, 'TelephoneRose', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
+(1, 'laparfaite', 'Navarro', 'Camille', 'camille.navarro@edu.ece.fr', 'camillenavarro', 'Etudiant', '1997-06-02', 'femme', 'administrateur'),
 (2, 'romanG', 'Gouge', 'Roman', 'roman.gouge@edu.ece.fr', 'romangouge', 'Etudiant', '1997-01-24', 'homme', 'administrateur'),
 (3, 'fionaC', 'Chuet', 'Fiona', 'fiona.chuet@edu.ece.fr', 'Fiona300196', 'Etudiant', '1996-10-30', 'femme', 'administrateur'),
-(4, 'marineF', 'Foucambert', 'Marine', 'marine.foucambert@edu.ece.fr', 'marinefoucambert', 'Etudiant', NULL, 'femme', 'auteur'),
 (5, 'rimZ', 'Zaafouri', 'Rim', 'rim.zaafouri@edu.ece.fr', 'rimzaafouri', 'Etudiant', NULL, 'femme', 'auteur'),
 (6, 'manoloH', 'Hina', 'Manolo', 'manolo.hina@ece.fr', 'manolohina', 'Employe', NULL, 'homme', 'auteur'),
 (7, 'moochC', 'Chuet', 'Mooch', 'mooch@edu.ece.fr', 'Mooch0616', 'Employe', '2016-06-14', 'autre', 'auteur');
