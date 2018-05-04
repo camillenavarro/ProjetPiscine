@@ -207,11 +207,11 @@
                 <div id="photo_profil">
                     <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
                     <p>
-			<form enctype="multipart/form-data" action="modifier_photo_profil.php" method="post">
+			<form enctype="multipart/form-data" action="modifier_photo.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
-				Modifier ma photo : <input type="file" name="uploadFile">
-				<br><input type="submit" name=sub value="Enregistrer">
-			</form>
+				<input type="file" name="uploadFile">
+				<br><input type="submit" name="type" value="Modifier ma photo">
+			</form></p>
                 </div>
             
                 <!-- Informations -->
@@ -302,12 +302,12 @@
                 <div id="photo_fond">
                     <h2>Image de fond</h2>
                     <img src="image/<?php echo $photo_fond; ?>" alt="Fond d'écran de mon profil" height="400" width="500">
-                    
-			<form enctype="multipart/form-data" action="modifier_photo_fond.php" method="post">
+                    <p>
+			<form enctype="multipart/form-data" action="modifier_photo.php" method="post">
 				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
-				Modifier ma photo de fond : <input type="file" name="uploadFile">
-				<br><input type="submit" name=sub value="Enregistrer">
-			</form>
+				<input type="file" name="uploadFile">
+				<br><input type="submit" name="type" value="Modifier mon fond">
+			</form></p>
                 </div>
                 
                 <!-- Boutons de modification pour les administrateurs -->
