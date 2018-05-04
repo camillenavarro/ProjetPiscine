@@ -10,8 +10,12 @@
 	$prenom_collegue = array();
 	$photo_collegue = array();
 	$pseudo_collegue = array();
+    $reseau = array();
+    
 	$i = 0 ;
 	$j = 0 ;
+    $k = 0;
+    $m = 0;
 	
 	//Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
@@ -137,10 +141,11 @@
 				?>
 				<br><br>
 				<?php 
-					$_SESSION['pseudo'] = $pseudo_ami[$i];
+					//$_SESSION['pseudo'] = $pseudo_ami[$i];
+                    array_push($reseau, $pseudo_ami[$i]);
 				?>
 				<form action="profil_reseau.php" method="post">
-                        <input type="submit" value="Voir le profil">
+                        <input type="submit" value="Voir le profil" name="<?php echo $i;?>">
                 </form>
 			</tr>
 			<?php
@@ -153,27 +158,32 @@
 		<table>
 		<tbody>
 			<?php 
-				for($i = 0 ; $i < sizeof($collegue) ; $i ++)
+				for($k = 0 ; $k < sizeof($collegue) ; $k ++)
 				{ 
 			?>
 			<tr>
 				<td>
 				<div id="photo_collegue">
-                    <img src="image/<?php echo $photo_collegue[$i]; ?>" alt = "<?php echo $photo_collegue[$i]; ?>" height="100" width="100">
+                    <img src="image/<?php echo $photo_collegue[$k]; ?>" alt = "<?php echo $photo_collegue[$k]; ?>" height="100" width="100">
                 </div>
 				</td>
 				<td>
 				<?php
-					echo "$prenom_collegue[$i] ";  
-					echo " $nom_collegue[$i]"; 
+					echo "$prenom_collegue[$k] ";  
+					echo " $nom_collegue[$k]"; 
 				?>
 				<br><br>
 				<?php 
-					$_SESSION['pseudo'] = $pseudo_collegue[$i];
+					//$_SESSION['pseudo'] = $pseudo_collegue[$k];
+                    array_push($reseau, $pseudo_collegue[$k]);
 				?>
                     
 				<form action="profil_reseau.php" method="post">
-                        <input type="submit" value="Voir le profil">
+                   <?php 
+                        $m = $k + $i;
+                    ?>
+                        <input type="submit" value="Voir le profil" name="<?php echo $m;?>">
+
                 </form>
 				</td>
 			</tr>
@@ -182,5 +192,6 @@
 			?>
 		</tbody>
 		</table>
+        <?php $_SESSION['pseudo'] = $reseau; ?>
 	</body>
 </html>

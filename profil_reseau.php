@@ -1,6 +1,18 @@
 <?php
     session_start();
     $etudiant = false ;
+    //Déclaration des variables 
+    $reseau = $_SESSION['pseudo'];
+    $index=0;
+    $i = 0;
+    for($i = 0 ; $i < sizeof($reseau) ; $i ++)
+	{
+        if (isset($_POST[$i])) {
+            $index=$i;
+        }
+    }
+
+    $pseudo_reseau = $reseau[$index];
 
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
@@ -18,8 +30,6 @@
 		$id_co = $db_field7['id_user'];
 	}
 
-    //Déclaration des variables 
-    $pseudo_reseau = $_SESSION['pseudo'];
 	
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo_reseau'";

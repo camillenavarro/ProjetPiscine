@@ -129,7 +129,10 @@
         }
         //Libérations des résultats de la photo de profil
         $result6->free();
-    }	
+    }
+    else{
+        $photo_fond = "background.png";
+    }
 	
     //Libération des résultats
     $result->free();
