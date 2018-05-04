@@ -183,7 +183,7 @@
         <!-- Div principal -->
         <div class="conteneur">
             
-            <a href="accueil.php"><button>Accueil</button></a>
+            <a href=""><button>Accueil</button></a>
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
             <a href="profil.php"><button>Voir mon profil</button></a>
             <a href="reseau.php"><button>Mon réseau</button></a>
@@ -225,7 +225,15 @@
 					?>
 					<?php echo $prenom; ?> ne fait pas partie de votre réseau.
 					<!-- Ajouter au réseau -->
-					<p><input type="submit" value="Ajouter au réseau" name="ajout_reseau"></p>
+					<p><form action = "ajout_contact.php" method = "post">
+						Ajouter au réseau :
+						<select name = "relation">
+							<option>Choisir</option>
+							<option>Ajouter en ami</option>
+							<option>Ajouter aux contacts professionnels</option>
+						</select>					
+						<input type="submit" value="Ajouter" name="ajout_reseau">
+					</form></p>
 					<?php 
 							}
 							else 
@@ -234,20 +242,31 @@
 								{
 					?>
 					Vous et <?php echo $prenom; ?> êtes amis.
+					<!-- Modifier la relation -->
+					<p><form action = "modifier_relation.php" method = "post">
+					<input type="submit" value="Devenir collègues" name="modifier_relation">
+					</form></p>
 					<?php 
 								}
 								else
 								{
 					?>
 					Vous et <?php echo $prenom; ?> êtes collègues.
+					<!-- Modifier la relation -->
+					<p><form action = "modifier_relation.php" method = "post">
+					<input type="submit" value="Devenir amis" name="modifier_relation">
+					</form></p>
 					<?php 
 								}
 					?>
+					
 					<!-- Envoyer un message -->
 					<p><input type="submit" value="Envoyer un message" name="message"></p>
 
 					<!-- Supprimer du réseau -->
-					<p><input type="submit" value="Supprimer du réseau" name="suppression_reseau"></p>
+					<p><form action = "suppr_ami.php">
+					<input type="submit" value="Supprimer du réseau" name="suppression_reseau">
+					</form></p>
 					<?php
 							}
 						}
@@ -276,12 +295,12 @@
                 
                 <!-- Etudes et expérience -->
                 <div id="etudes">
-                    <h2>Parcours scolaire</h2>
+                    <h2>Etudes</h2>
                     <p><?php echo $etude_historique; ?></p>
                 </div>
 
                 <div id="experience">
-                    <h2>Expérience professionnelle</h2>
+                    <h2>Expérience</h2>
                     <p><?php echo $experience; ?></p>
                 </div>
 
