@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 03 mai 2018 à 21:34
+-- Généré le :  ven. 04 mai 2018 à 08:42
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -54,7 +54,25 @@ CREATE TABLE IF NOT EXISTS `apprenti` (
   `entreprise` varchar(30) NOT NULL COMMENT 'Entreprise dans laquelle travaille l''apprenti',
   PRIMARY KEY (`id_apprenti`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations des apprentis';
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `connexion`
+--
+
+DROP TABLE IF EXISTS `connexion`;
+CREATE TABLE IF NOT EXISTS `connexion` (
+  `id_user` int(11) NOT NULL COMMENT 'Clé primaire de l''utilisateur connecté'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `connexion`
+--
+
+INSERT INTO `connexion` (`id_user`) VALUES
+(3);
 
 -- --------------------------------------------------------
 
@@ -160,7 +178,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `annees` int(11) NOT NULL COMMENT 'Années d''études',
   PRIMARY KEY (`id_etu`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations des étudiants';
 
 --
 -- Déchargement des données de la table `etudiant`
