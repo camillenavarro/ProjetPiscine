@@ -1,20 +1,18 @@
 <?php
+	session_start();
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
-
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
     //Récupération de l'id de l'utilisateur connecté
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
     while ($db_field7 = $result7->fetch_assoc()) { 
         $id_user = $db_field7["id_user"];
     }
-
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE id_user='$id_user'";
     $result = $db_handle->query($SQL);
@@ -23,11 +21,11 @@
     if($result->num_rows != 1){
         die ("Vous avez rentré un nom d'utilisateur invalide ou l'utilisateur n'existe pas!");
     }
-
     //Récupération des données
     while ($db_field = $result->fetch_assoc()) { 
         $id_user = $db_field["id_user"];
         $pseudo = $db_field["pseudo"];
+		$_SESSION['pseudo'] = $pseudo ;
         $nom = $db_field["nom"];
         $prenom = $db_field["prenom"];
         $mail = $db_field["mail"];
@@ -54,7 +52,6 @@
         
         $droit = $db_field["droit"];
     }
-
     //Si la personne est un étudiant
     if($etudiant == true){
         //Requête SQL
@@ -85,7 +82,6 @@
         //Libérations des résultats
         $result3->free();
     }
-
     //Requêtes SQL pour informations du profil
     $SQL4 = "SELECT * FROM profil WHERE id_user='$id_user'";
     $result4 = $db_handle->query($SQL4);
@@ -97,14 +93,11 @@
         $experience = $db_field4["experience"];
         $etude_historique = $db_field4["etude"];    
     }
-
     //Libérations des résultats du profil
     $result4->free();
-
     //Variables des photos
     $photo_profil = null;
     $photo_fond = null;
-
     //Si l'utilisateur possède une photo de profil
     if($id_photo != null){
         //Requête SQL pour la photo de profil
@@ -115,7 +108,6 @@
         while ($db_field5 = $result5->fetch_assoc()) { 
             $photo_profil = $db_field5["nom_fichier"];   
         }
-
         //Libérations des résultats de la photo de profil
         $result5->free();
     }
@@ -136,20 +128,17 @@
         while ($db_field6 = $result6->fetch_assoc()) { 
             $photo_fond = $db_field6["nom_fichier"];   
         }
-
         //Libérations des résultats de la photo de profil
         $result6->free();
     }
     else{
         $photo_fond = "background.png";
     }
-
     //Libération des résultats
     $result->free();
         
     //Fermeture de la connexion à la BDD
     $db_handle->close();
-
 ?> 
 
 <html>
@@ -216,6 +205,7 @@
                     </p>
                     
                     <!-- Bouton de modification des informations -->
+					
                     <form action="modifier_profil_front.php" method="post">
                         <input type="submit" value="Modifier mes informations">
                     </form>
