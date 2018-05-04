@@ -3,10 +3,12 @@
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
-    $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
+    $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); 
+
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
+
     //Récupération de l'id de l'utilisateur connecté
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
@@ -151,13 +153,15 @@
         <!-- Div principal -->
         <div id="conteneur">
             
-            <a href=""><button>Accueil</button></a>
-            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-            <a href="profil.php"><button>Voir mon profil</button></a>
-            <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href=""><button>Mes notifications</button></a>
-            <a href=""><button>Mes offres d'emplois</button></a>
-            <a href="deconnexion.php"><button>Déconnexion</button></a>
+            <div class="menu">
+                <a href=""><button>Accueil</button></a>
+                <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
+                <a href="profil.php"><button>Voir mon profil</button></a>
+                <a href="reseau.php"><button>Mon réseau</button></a>
+                <a href=""><button>Mes notifications</button></a>
+                <a href=""><button>Mes offres d'emplois</button></a>
+                <a href="deconnexion.php"><button>Déconnexion</button></a>
+            </div>
             
             <h1>Gérer mon profil</h1>
             <!-- Type d'utilisateur -->
@@ -227,20 +231,17 @@
             <div id="gestion_profil_centre">
                 <!-- Etudes et expérience -->
                 <div id="etudes">
-                    <h2>Etudes</h2>
+                    <h2>Parcours scolaire</h2>
                     <p><?php echo $etude_historique; ?></p>
                 </div>
 
                 <div id="experience">
-                    <h2>Expérience</h2>
-                    <p><?php echo $experience; ?></p>
+                    <h2>Expérience professionnelle</h2>
+                    <p><?php echo $experience; ?></p>                 
                 </div>
-
-                <!-- Modifier les études -->
-                <p><input type="submit" value="Modifier mes études"></p>
                 
-                <!-- Modifier les expériences -->
-                <p><input type="submit" value="Modifier mes expériences"></p>
+                <!-- Modifier le parcours scolaire et l'expérience -->
+                <p><a href="modifier_etudes_experience_front.php"><button>Modifier mon parcours scolaire et mes expérience</button></a></p>
                 
                 <!-- Modifier le CV -->
                 <p><input type="submit" value="Modifier mon CV"></p>

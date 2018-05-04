@@ -201,12 +201,12 @@
                 
                 <!-- Etudes et expérience -->
                 <div id="etudes">
-                    <h2>Etudes</h2>
+                    <h2>Parcours scolaire</h2>
                     <p><?php echo $etude_historique; ?></p>
                 </div>
 
                 <div id="experience">
-                    <h2>Expérience</h2>
+                    <h2>Expérience professionnelle</h2>
                     <p><?php echo $experience; ?></p>
                 </div>
 

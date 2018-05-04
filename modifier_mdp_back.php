@@ -25,8 +25,15 @@
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
 
+    //Récupération de l'id de l'utilisateur connecté
+    $SQL7 = "SELECT id_user FROM connexion";
+    $result7 = $db_handle->query($SQL7);
+    while ($db_field7 = $result7->fetch_assoc()) { 
+        $id_user = $db_field7["id_user"];
+    }
+
     //Vérification du mot de passe actuel
-    $SQL = "SELECT mdp FROM utilisateur WHERE pseudo='$pseudo'";
+    $SQL = "SELECT mdp FROM utilisateur WHERE id_user='$id_user'";
     $result = $db_handle->query($SQL);
 
     //Récupération des données
@@ -44,6 +51,6 @@
     $db_handle->query($SQL2);
 
     //Retour à la gestion du profil
-    header('Location: index_testFiona.php');
+    header('Location: gestion_profil.php');
 
 ?>
