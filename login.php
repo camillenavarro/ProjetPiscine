@@ -1,5 +1,4 @@
 <?php
-    session_start();
 	$pseudo = isset($_POST["pseudo"]) ? $_POST["pseudo"] : "";
 	$mdp = isset($_POST["mdp"]) ? $_POST["mdp"] : "";
 	$error = "";
@@ -24,16 +23,18 @@
 		
 		while($recherche = mysqli_fetch_array($result))
 		{
+            $id_user = $recherche['id_user'];
 			if($mdp != $recherche['mdp'])
 			{
 				echo "Le mot de passe est incorrect." ;
 			}
-			$_SESSION['pseudo'] = $pseudo;
+            
+            //On update la table connexion pour y inscrire l'id de l'utilisateur présentement connecté
+            $SQL2 = "INSERT INTO `connexion`(`id_user`) VALUES ('$id_user')";
+		    $db_handle->query($SQL2);
 			header('Location: profil.php');
 		}
 	}
 	else
 		echo "$error";
-	
-    
 ?>

@@ -1,19 +1,4 @@
 <?php
-    session_start();
-
-    //Déclaration des variables 
-    $pseudo = $_SESSION['pseudo'];
-     //$pseudo = isset($_POST["pseudo"])? $_POST["pseudo"] : ""; //On vérifie si le champ associé au nom de l'employé est vide 
-     $error = ""; //Erreur à afficher si l'un des champs du formulaire est vide ou incorrect
-
-    //Vérification des champs vides ou incorrects, affect à error une valeur en conséquence
-     if($pseudo == "") { $error .= "Vous n'avez pas rentrer de nom d'utilisateur!<br/>"; }
-
-    //Si la variable error est toujours égale à sa valeur d'initialisation ("") alors il n'y a aucun champ vide
-     if ($error != "") { 
-        die ("Erreur: $error<br/>"); //On affiche l'erreur en question
-     }
-
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -23,8 +8,15 @@
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
 
+    //Récupération de l'id de l'utilisateur connecté
+    $SQL7 = "SELECT id_user FROM connexion";
+    $result7 = $db_handle->query($SQL7);
+    while ($db_field7 = $result7->fetch_assoc()) { 
+        $id_user = $db_field7["id_user"];
+    }
+
     //Requête SQL et récupération des résultats
-    $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo'";
+    $SQL = "SELECT * FROM utilisateur WHERE id_user='$id_user'";
     $result = $db_handle->query($SQL);
     
     //Vérification que l'utilisateur existe dans la base de données
@@ -165,6 +157,14 @@
     <body>
         <!-- Div principal -->
         <div id="conteneur">
+            
+            <a href=""><button>Accueil</button></a>
+            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
+            <a href="profil.php"><button>Voir mon profil</button></a>
+            <a href="reseau.php"><button>Mon réseau</button></a>
+            <a href=""><button>Mes notifications</button></a>
+            <a href=""><button>Mes offres d'emplois</button></a>
+            <a href="deconnexion.php"><button>Déconnexion</button></a>
             
             <!-- Type d'utilisateur -->
             <div id="droit">
