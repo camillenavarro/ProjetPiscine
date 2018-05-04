@@ -1,6 +1,5 @@
 <?php
     $etudiant = false ;
-
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -8,7 +7,7 @@
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-    
+	
 	$SQL7 = "SELECT * FROM connexion";
     $result7 = $db_handle->query($SQL7);
 	
@@ -30,10 +29,6 @@
         $mail = $db_field["mail"];
         $genre = $db_field["genre"];
 		$fonction = $db_field["fonction"];
-		
-		if($id_user == $id_co) { $profil_user = true ; }
-			else { $profil_user = false ; }
-		
 		
         //Deux types de fonctions: étudiant ou employé
         if($fonction == "Etudiant" or $fonction == "Apprenti"){
@@ -134,27 +129,7 @@
         }
         //Libérations des résultats de la photo de profil
         $result6->free();
-    }
-
-	
-	if($profil_user == false)
-	{
-		$SQL8 = "SELECT * FROM contact WHERE id_user = '$id_co'";
-		$result8 = $db_handle->query($SQL8) ;
-		
-		$relation = "aucune" ;
-		while($db_field8 = $result8->fetch_assoc())
-		{
-			if($db_field8['id_user_contact'] == $id_user)
-			{
-				if($db_field8['type'] == "ami") 
-					$relation = "ami" ;
-				else 	
-					$relation = "collegue" ;
-			}
-		}
-		$result8->free();
-	}		
+    }	
 	
     //Libération des résultats
     $result->free();
@@ -206,44 +181,7 @@
                         ?>
                 </p>
 
-                <!-- Relation -->
-                <div id="relation">
-					<?php if($profil_user == false)
-						{
-							if($relation == "aucune")
-							{
-					?>
-					<?php echo $prenom; ?> ne fait pas partie de votre réseau.
-					<!-- Ajouter au réseau -->
-					<p><input type="submit" value="Ajouter au réseau" name="ajout_reseau"></p>
-					<?php 
-							}
-							else 
-							{
-								if($relation == "ami")
-								{
-					?>
-					Vous et <?php echo $prenom; ?> êtes amis.
-					<?php 
-								}
-								else
-								{
-					?>
-					Vous et <?php echo $prenom; ?> êtes collègues.
-					<?php 
-								}
-					?>
-					<!-- Envoyer un message -->
-					<p><input type="submit" value="Envoyer un message" name="message"></p>
-
-					<!-- Supprimer du réseau -->
-					<p><input type="submit" value="Supprimer du réseau" name="suppression_reseau"></p>
-					<?php
-							}
-						}
-					?>
-				</div>
-				
+                		
                 
 
                 <!-- Fin de la colonne de gauche -->
@@ -270,7 +208,7 @@
                 </div>
 
                 <!-- Voir le CV -->
-                <p><input type="submit" value="Voir le CV"></p>
+                <p><input type="submit" value="Ajouter mon CV"></p>
                 <!-- Fin de la colonne centrale -->
             </div>
             
@@ -284,8 +222,7 @@
                 <!-- Albums -->
 
                 <!-- Boutons de suppression et de modification pour les administrateurs -->
-                <p><input type="submit" value="Modifier l'utilisateur" name="modification_admin"></p>
-                <p><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></p>
+                <p><input type="submit" value="Modifier mon profil" name="modification_admin"></p>
                 <!-- Fin de la colonne de droite -->
             </div>
         </div>
