@@ -156,7 +156,7 @@
     
     <body>
         <!-- Div principal -->
-        <div id="conteneur">
+        <div class="conteneur">
             
             <a href=""><button>Accueil</button></a>
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
