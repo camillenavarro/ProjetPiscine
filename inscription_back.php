@@ -93,8 +93,19 @@
 				}
 			}
 			
-			$SQL7 = "INSERT INTO connexion VALUES ('$id')";
-			$db_handle->query($SQL7);
+			$SQL7 = "SELECT COUNT(id_user) FROM connexion";
+			$result7 = $db_handle->query($SQL7) ;
+			
+			while($db_field7 = $result7->fetch_assoc())
+			{
+				$nb_connecte = $db_field7['COUNT(id_user)'];
+			}
+			
+			if($nb_connecte == 0)
+			{
+				$SQL7 = "INSERT INTO connexion VALUES ('$id')";
+				$db_handle->query($SQL7);
+			}
 			
 			$_SESSION['pseudo'] = $pseudo ;
 			

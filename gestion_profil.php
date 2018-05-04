@@ -4,11 +4,9 @@
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); 
-
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
     //Récupération de l'id de l'utilisateur connecté
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
@@ -150,7 +148,6 @@
     else{
         $photo_fond = "background.png";
     }
-
     //Si l'utilisateur a déjà déposé un CV
     if($id_cv != null){
         //Requête SQL pour la photo de profil
@@ -167,7 +164,6 @@
     else{
         $CV = "Vous n'avez pas encore déposé de CV.";
     }
-
     //Libération des résultats
     $result->free();
         
@@ -311,13 +307,12 @@
                 </div>
                 
                 <!-- Boutons de modification pour les administrateurs -->
-                <div id="boutons_administrateur" <?php if($droit == "administrateur") { echo "style='display: block;'"; } 
-                          else { echo "style='display: none;'"; }?>>
+                <div id="boutons_administrateur">
+
+				<p <?php if($droit != "administrateur") {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>
                     <!-- Ajouter un utilisateur -->
-                    <form action="inscription_front.php" method="post">
-                        <input type="submit" value="Ajouter un utilisateur">
-                    </form>
-            
+                    <a href="inscription_front.php"><input type="submit" value="Ajouter un utilisateur"></a>
+				</p>
                 </div>
                 <!-- Fin de la colonne de droite -->
             </div>
