@@ -174,7 +174,12 @@
                 <!-- Photo de profil -->
                 <div id="photo_profil">
                     <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
-                    <p><input type="submit" value="Modifier ma photo" name="modifier_photo_profil"></p>
+                    <p>
+			<form enctype="multipart/form-data" action="modifier_photo_profil.php" method="post">
+				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
+				Modifier ma photo : <input type="file" name="uploadFile">
+				<br><input type="submit" name=sub value="Enregistrer">
+			</form></p>
                 </div>
             
                 <!-- Informations -->
@@ -244,7 +249,13 @@
                 <p><a href="modifier_etudes_experience_front.php"><button>Modifier mon parcours scolaire et mes expérience</button></a></p>
                 
                 <!-- Modifier le CV -->
-                <p><input type="submit" value="Modifier mon CV"></p>
+                <p>
+			<form enctype="multipart/form-data" action="modifier_cv.php" method="post">
+				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
+				Modifier mon CV : <input type="file" name="uploadFile">
+				<br><input type="submit" name=sub value="Enregistrer">
+				</form>
+		</p>
                 <!-- Fin de la colonne centrale -->
             </div>
             
@@ -259,7 +270,12 @@
                 <div id="photo_fond">
                     <h2>Image de fond</h2>
                     <img src="image/<?php echo $photo_fond; ?>" alt="Fond d'écran de mon profil" height="400" width="500">
-                    <p><input type="submit" value="Modifier l'image de fond" name="modifier_photo_fond"></p>
+                    <p>
+			<form enctype="multipart/form-data" action="modifier_photo_fond.php" method="post">
+				<input type="hidden" name="MAX_FILE_SIZE" value="50000">
+				Modifier ma photo de fond : <input type="file" name="uploadFile">
+				<br><input type="submit" name=sub value="Enregistrer">
+			</form></p>
                 </div>
                 
                 <!-- Boutons de modification pour les administrateurs -->
