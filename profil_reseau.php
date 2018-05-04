@@ -28,6 +28,15 @@
 		$id_co = $db_field7['id_user'];
 	}
 	
+	$SQL8 = "SELECT droit FROM utilisateur WHERE id_user = '$id_co'";
+	$result8 = $db_handle->query($SQL8);
+	
+	while ($db_field8 = $result8->fetch_assoc()) 
+	{
+		$mon_droit = $db_field8['droit'];
+	}
+	
+	
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo_reseau'";
     $result = $db_handle->query($SQL);
@@ -183,7 +192,7 @@
         <!-- Div principal -->
         <div class="conteneur">
             
-            <a href="accueil.php"><button>Accueil</button></a>
+            <a href=""><button>Accueil</button></a>
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
             <a href="profil.php"><button>Voir mon profil</button></a>
             <a href="reseau.php"><button>Mon réseau</button></a>
@@ -319,10 +328,16 @@
                 <!-- Albums -->
 
                 <!-- Boutons de suppression et de modification pour les administrateurs -->
-                <p><form action = "modifier_profil_front.php">
-					<input type="submit" value="Modifier l'utilisateur" name="modification_admin">
-				</form></p>
-                <p><form action = "supprimer_user.php"><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></form></p>
+                <div id="boutons_administrateur">
+
+					<p <?php if($mon_droit != "administrateur") {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>
+						<a href = "modifier_profil_front.php"><input type="submit" value="Modifier l'utilisateur"></a>
+					</p>
+					<p <?php if($mon_droit != "administrateur") {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>
+						<a href = "supprimer_user.php"><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></a>
+					</p>
+				
+				</div>
                 <!-- Fin de la colonne de droite -->
             </div>
         </div>
