@@ -2,20 +2,16 @@
     //Sauvegarde du pseudo
     session_start();
     $pseudo = $_SESSION['pseudo'];
-
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
     $db_found = $db_handle->select_db($database) or die ("Base de données introuvable!"); //Vérification que la BDD existe 
-
     //Requête SQL et récupération des résultats
     $SQL = "SELECT * FROM utilisateur WHERE pseudo='$pseudo'";
     $result = $db_handle->query($SQL);
-
     //Variables
     $etudiant = null;
     $apprenti = null;
-
     //Récupération des données
     while ($db_field = $result->fetch_assoc()) { 
         $id_user = $db_field["id_user"];
@@ -48,7 +44,6 @@
         
         $droit = $db_field["droit"];
     }
-
     //Si la personne est un étudiant
     if($etudiant == true){
         //Requête SQL
@@ -78,7 +73,6 @@
             $result3->free();
         }
     }
-
     //Sinon c'est un employé
     else{
         //Requête SQL
@@ -93,6 +87,22 @@
         //Libérations des résultats
         $result3->free();
     }
+	
+	$SQL7 = "SELECT * FROM connexion";
+    $result7 = $db_handle->query($SQL7);
+	
+	while ($db_field7 = $result7->fetch_assoc()) 
+	{
+		$id_co = $db_field7['id_user'];
+	}
+	
+	$SQL8 = "SELECT droit FROM utilisateur WHERE id_user = '$id_co'";
+	$result8 = $db_handle->query($SQL8);
+	
+	while ($db_field8 = $result8->fetch_assoc()) 
+	{
+		$mon_droit = $db_field8['droit'];
+	}
 ?>
 
 <!DOCTYPE html>
@@ -216,6 +226,10 @@
                     <td>Entreprise:</td>
                     <td><input type = "text" name = "modif_entreprise" value="<?php if($apprenti != null) {echo $entreprise;} else {echo "";} ?>"></td>
                 </tr>
+				
+				<tr <?php if($mon_droit == "administrateur" && $droit == "auteur") {echo "style='display: block;'";} else {echo "style='display: none;'";} ?>>
+						<input type="checkbox" name = "admin">Donner un droit d'administration
+				</tr>
                             
                 <tr>
                     <td><input type="submit" value="Valider" value="<?php echo $pseudo; ?>"></td>
@@ -226,5 +240,3 @@
         
     </body>
 </html>
-
-

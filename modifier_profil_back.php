@@ -14,6 +14,7 @@
     $modif_degre = isset($_POST["modif_degre"]) ? $_POST["modif_degre"] : ""; 
     $modif_annees = isset($_POST["modif_annees"]) ? $_POST["modif_annees"] : ""; 
     $modif_entreprise = isset($_POST["modif_entreprise"]) ? $_POST["modif_entreprise"] : ""; 
+	$modif_droit = isset($_POST["admin"]) ? $_POST["admin"] : "";
 	$error = "" ;
     //On vérifie qu'aucune ligne ne soit vide
     if($modif_pseudo == "") { $error .= "Veuillez saisir un pseudo!<br />";}
@@ -124,6 +125,14 @@
         $SQL10 = "UPDATE employe SET poste='$modif_poste' WHERE id_user='$id_user'";
         $db_handle->query($SQL10);
     }
+	
+	//Cas n°5 : un auteur devient administrateur
+	if($modif_droit != "")
+	{
+		$SQL11 = "UPDATE utilisateur SET droit = 'administrateur' WHERE id_user = '$id_user'";
+		$db_handle->query($SQL11);
+	}
+	
     //Retour à la gestion du profil
     header('Location: gestion_profil.php');
     //Fermer la connexion
