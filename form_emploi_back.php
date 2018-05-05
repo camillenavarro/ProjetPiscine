@@ -38,5 +38,7 @@
 	
 	$SQL2 = "INSERT INTO emploi (id_user,entreprise,type,poste,date_debut,date_fin,texte,lieu) VALUES ('$id_user','$entreprise','$type','$poste','$debut','$fin','$texte','$lieu')";
 	$db_handle->query($SQL2);
+	
+	header("Location: accueil.php");
 
 ?>

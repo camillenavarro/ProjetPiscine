@@ -43,6 +43,7 @@
         $prenom = $db_field["prenom"];
         $pseudo = $db_field["pseudo"];
         $genre = $db_field["genre"];
+		$droit = $db_field["droit"];
     }
     //Requêtes SQL pour informations du profil
     $SQL4 = "SELECT * FROM profil WHERE id_user='$id_user'";
@@ -181,7 +182,7 @@
                 <a href="profil.php"><button>Voir mon profil</button></a>
                 <a href="reseau.php"><button>Mon réseau</button></a>
                 <a href=""><button>Mes notifications</button></a>
-                <a href=""><button>Mes offres d'emplois</button></a>
+                <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
                 <a href="deconnexion.php"><button>Déconnexion</button></a>
             </div>
             
@@ -209,6 +210,13 @@
                 <input type="submit" value="Envoyer" name="Soumettre">
                 </form>
                 
+				<!--Possibilité de créer une offre d'emploi pour un admin-->
+				<div id="boutons_administrateur">
+					<p <?php if($droit != "administrateur") { echo "style='display: none;'"; } else { echo "style='display: block;'"; } ?>>
+						<a href = "form_emploi_front.php"><input type = "submit" value = "Poster une offre d'emploi"></a>
+					</p>
+				</div>
+				
                 <!-- Les notifications -->
                 <div id="accueil_notif">
                     <h3>Mes notifications</h3>
@@ -223,6 +231,8 @@
                     <?php }} ?>
                 </div>
                 
+				
+				
                 <!-- Les demandes d'amis -->
             <form action = "reception_demande_front.php" method = "post">
 				<input type = "submit" value = "Voir les demandes d'amis">

@@ -120,7 +120,7 @@
         <a href="profil.php"><button>Voir mon profil</button></a>
         <a href="reseau.php"><button>Mon réseau</button></a>
         <a href=""><button>Mes notifications</button></a>
-        <a href=""><button>Mes offres d'emplois</button></a>
+        <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
         <a href="deconnexion.php"><button>Déconnexion</button></a>
 			
 		<h1>Réseau de <?php echo $prenom_user;?> <?php echo $nom_user;?></h1> 
