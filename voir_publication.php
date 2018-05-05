@@ -26,20 +26,52 @@
     while ($db_field7 = $result7->fetch_assoc()) { 
         $id_user = $db_field7["id_user"];
     }
-
-  /* //On récupère les infos liées à la publication
-    $SQL7 = "SELECT id_user FROM connexion";
+    
+    //On récupère les infos liées à la publication
+    $SQL7 = "SELECT * FROM publication WHERE id_pub='$id_pub'";
     $result7 = $db_handle->query($SQL7);
+
+    //On consigne les résultats dans un tableau
     while ($db_field7 = $result7->fetch_assoc()) { 
-        $id_user = $db_field7["id_user"];
-    }*/
+        $id_auteur = $db_field7["id_user"]; //L'id de l'auteur de la publication
+        $id_media = $db_field7["id_media"];
+        $type = $db_field7["type"];
+        $date_post = $db_field7["date_post"];
+        $text = $db_field7["texte"];
+    }
+
+    //Si c'est une publication photo, on récuypère les données de la phot
+    if($type == "photo"){
+        //On récupère les infos liées à la photo
+        $SQL8 = "SELECT * FROM media WHERE id_media='$id_media'";
+        $result8 = $db_handle->query($SQL8);
+
+        //On consigne les résultats dans un tableau
+        while ($db_field8 = $result8->fetch_assoc()) { 
+            $nom_fichier = $db_field8["nom_fichier"]; 
+        }  
+    }
+
+    //On récupère maintenant les informations de l'auteur de la publication
+    $SQL9 = "SELECT * FROM utilisateur WHERE id_user='$id_auteur'";
+    $result9 = $db_handle->query($SQL9);
+
+    //On consigne les résultats dans un tableau
+    while ($db_field9 = $result9->fetch_assoc()) { 
+        $nom_auteur = $db_field9["nom"]; 
+        $prenom_auteur = $db_field9["prenom"];
+        $pseudo_auteur = $db_field9["pseudo"];
+        $_SESSION['pseudo_auteur'] = $pseudo_auteur;
+    }  
+
+
 ?>
 
 <html>
     <head>
         <link href="accueil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Mes notifications</title>
+        <title>Publication de <?php echo $prenom_auteur ?> <?php echo $nom_auteur ?></title>
     </head>
     
     <body>
@@ -55,11 +87,18 @@
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
             
-            <div id="notif_centre">
-                <!-- Photo de profil -->
-                <h2>Mes notifications</h2>
-                
-        
+            <div id="voir_publication">
+                <h2>Publication de <?php echo $prenom_auteur ?> <?php echo $nom_auteur ?></h2>
+                <p><form action="profil_auteur.php" method="post">
+                        <input type="submit" value="Voir le profil de <?php echo $pseudo_auteur; ?>" name="<?php echo $i;?>">
+                </form></p>
+                <p>Postée le <?php echo $date_post; ?><br>
+                <?php echo $text ?><br>
+                <p><?php
+                        if($type == "photo"){
+                            echo '<img src="image/' . $nom_fichier . '"/>';
+                        }
+                    ?></p>
             </div>
         </ul>
     
