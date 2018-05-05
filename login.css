@@ -24,9 +24,9 @@ form>button{
     
 }
 /*quand on clique sur le bouton*/
-button:focus{
+button:hover{
 
-    color:lightskyblue;
+    color:gold;
     
 }
 /*Changer la taille des boites texte */
