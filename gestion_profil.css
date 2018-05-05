@@ -1,0 +1,99 @@
+html{
+    background-image: url(fond.jpg);
+   color:white;
+   font-size:120%;
+  
+}
+.menu{
+    position: relative;
+    width:200%;
+    background-image: url(ban.jpg);
+    height:75px;
+    margin-left:-60px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+.menu>ul{
+    width: 20%;
+  
+}
+.menu>li{
+    position: relative;
+    list-style:none;
+    display:inline-table;
+
+}
+.menu>li>a>button{
+    margin-top:10px;
+    height:50px;
+    width:200px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+.menu>li>a>button:hover{
+    color:gold;
+
+}
+h1{
+    margin-left:500px;
+}
+h3{
+    margin-left:500px;
+}
+img{
+    border:solid 4px white;
+    margin-left:80px;
+}
+div[name="Info"]
+{
+    background-image:url(fonText.jpg);
+    padding:20px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+    margin-right:500px;
+    margin-left:400px;
+    margin-top:-250px;
+    font-size:100%;
+
+}
+input[type="submit"]{
+    margin-top:10px;
+    height:50px;
+    width:250px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+    margin-left:20px;
+}
+input[type="submit"]:hover{
+    color:gold;
+
+}
+div[name="ges"]
+{
+    background-image:url(fonText.jpg);
+    padding:20px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+    margin-right:500px;
+    font-size:100%;
+}
+div[name="event"]
+{
+    background-image:url(fonText.jpg);
+    padding:20px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+    margin-right:500px;
+    font-size:100%;
+}
+div[name="I"]
+{
+    background-image:url(fonText.jpg);
+    padding:20px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+    margin-right:500px;
+    font-size:100%;
+}

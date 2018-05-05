@@ -173,24 +173,25 @@
 
 <html>
     <head>
+    <link href="gestion_profil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Gérer mon profil</title>
     </head>
     
     <body>
         <!-- Div principal -->
-        <div id="conteneur">
+        <ul class="conteneur">
             
-            <div class="menu">
-                <a href="accueil.php"><button>Accueil</button></a>
-                <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-                <a href="profil.php"><button>Voir mon profil</button></a>
-                <a href="reseau.php"><button>Mon réseau</button></a>
-                <a href="notifications.php"><button>Mes notifications</button></a>
-                <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-                <a href="deconnexion.php"><button>Déconnexion</button></a>
-            </div>
-            
+            <ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
+
             <h1>Gérer mon profil</h1>
             <!-- Type d'utilisateur -->
             <div id="droit">
@@ -211,7 +212,7 @@
                 </div>
             
                 <!-- Informations -->
-                <div id="gestion_profil_informations">
+                <div name ="Info" id="gestion_profil_informations">
                     <h2>Mes informations</h2>
                     <!-- Pseudo -->
                     <p id="pseudo">Pseudo: <?php echo $pseudo; ?></p>
@@ -261,7 +262,7 @@
             
             
             <!-- Colonne centrale -->
-            <div id="gestion_profil_centre">
+            <div name="ges"id="gestion_profil_centre">
                 <!-- Etudes et expérience -->
                 <div id="etudes">
                     <h2>Parcours scolaire</h2>
@@ -290,12 +291,12 @@
             <!-- Colonne de droite -->
             <div id="gestion_profil_droite">
                 <!-- Evénements récents -->
-                <div id="evenements">
+                <div name="event" id="evenements">
                     <h2>Evénements récents</h2>
                 </div>
 
                 <!-- Image de fond -->
-                <div id="photo_fond">
+                <div name="I" id="photo_fond">
                     <h2>Image de fond</h2>
                     <img src="image/<?php echo $photo_fond; ?>" alt="Fond d'écran de mon profil" height="400" width="500">
                     <p>
