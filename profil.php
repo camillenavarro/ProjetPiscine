@@ -7,9 +7,6 @@
     //Eviter que des ? apparaissent à la place des accents
     $db_handle->query('SET NAMES utf8');
     header('Content-Type: text/html; charset=utf-8');
-
-    $pub = array();
-    $m = 0;
 	
 	$SQL7 = "SELECT * FROM connexion";
     $result7 = $db_handle->query($SQL7);
@@ -136,40 +133,6 @@
     else{
         $photo_fond = "background.png";
     }
-
-    //Récupérer les informations liées aux publications
-    $SQL7 = "SELECT * FROM publication WHERE id_user='$id_user'";
-    $result7 = $db_handle->query($SQL7);
-    
-    //Récupération des résultats
-    while ($db_field7 = $result7->fetch_assoc()) { 
-        $id_media= $db_field7["id_media"];   
-        $type= $db_field7["type"]; 
-        $date_post= $db_field7["date_post"];  
-        $texte= $db_field7["texte"];  
-        
-        if($type == "photo"){
-            //Il faut récupérer le nom du fichier de la photo
-            $SQL11 = "SELECT * FROM media WHERE id_media ='$id_media'";
-            $result11 = $db_handle->query($SQL11);
-
-            //Récupération des résultats
-            while ($db_field11 = $result11->fetch_assoc()) {
-                $nom_fichier = $db_field11['nom_fichier'];
-            }
-                    
-            $pub[$m] =  'Vous avez ajouté une nouvelle photo ! <br>Date de publication: ' . $date_post . '<br>Description de l\'image: ' . $texte . '<br>' . '<img src="image/' . $nom_fichier . '" width="120px" height="120px" />';
-            $m++;
-        }
-        else {
-            $pub[$m] ="Vous avez publié un nouvel évènement !<br>Date de publication: " . $date_post . "<br>Votre texte: " . $texte;  
-            $m++;
-        }
-    }
-
-    //Libérations des résultats de la photo de profil
-    $result7->free();
-
 	
     //Libération des résultats
     $result->free();
@@ -180,22 +143,24 @@
 
 <html>
     <head>
+    <link href="gestion_profil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Profil de <?php echo $prenom; ?> <?php echo $nom; ?> </title>
     </head>
     
     <body>
         <!-- Div principal -->
-        <div class="conteneur">
+        <ul class="conteneur">
             
-            <a href="accueil.php"><button>Accueil</button></a>
-            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-            <a href="profil.php"><button>Voir mon profil</button></a>
-            <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href="notifications.php"><button>Mes notifications</button></a>
-            <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-            <a href="deconnexion.php"><button>Déconnexion</button></a>
-            
+            <ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
             <!-- Type d'utilisateur -->
             <div id="droit">
                 <h3>Profil <?php echo $droit; ?></h3>
@@ -257,10 +222,6 @@
                 <!-- Evénements récents -->
                 <div id="evenements">
                     <h2>Evénements récents</h2>
-                    <?php for($i = sizeof($pub)- 1; $i > -1   ; $i--){ ?>
-                        <p>
-                            <?php echo $pub[$i]; } ?>
-                    </p>
                 </div>
                 <!-- Fin de la colonne de droite -->
             </div>
