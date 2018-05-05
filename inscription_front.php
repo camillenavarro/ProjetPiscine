@@ -41,15 +41,17 @@
 	</head>
 	<body>
         <div class="conteneur">
-            <div class="menu" <?php if($admin == true) {echo "style='display: block;'";} else {echo "style='display: none;'";} ?>>
-                <a href="accueil.php"><button>Accueil</button></a>
-                <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-                <a href="profil.php"><button>Voir mon profil</button></a>
-                <a href="reseau.php"><button>Mon réseau</button></a>
-                <a href=""><button>Mes notifications</button></a>
-                <a href=""><button>Mes offres d'emplois</button></a>
-                <a href="deconnexion.php"><button>Déconnexion</button></a>
-            </div>
+            <nav>
+            <ul class="menu" <?php if($admin == true) {echo "style='display: block;'";} else {echo "style='display: none;'";} ?>>
+               <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href=""><button>Mes notifications</button></a></li>
+               <li> <a href=""><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+        </ul>
+            </nav>
             <h2><?php if($admin == true) {echo "Ajouter un nouvel utilisateur";} else {echo "S'enregistrer";} ?></h2>
             <p>Les champs marques d'un <i>*</i> sont obligatoires.</p>
 
