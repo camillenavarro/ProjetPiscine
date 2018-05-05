@@ -149,7 +149,7 @@
                     $date_post = $db_field10['date_post'];
                 }
                 
-                $notif_pub[$m] = $prenom_contact . " " . $nom_contact . "<br>" . $detail_pub;  
+                $notif_pub[$m] = $texte_pub[$i] . " de " . $prenom_contact . " " . $nom_contact . "<br>Date de publication: " . $date_post . "<br>Details: " . $detail_pub;  
                 $m++;
             }
         }
@@ -177,7 +177,7 @@
                <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
                 <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
                <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
-               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href=""><button>Mes notifications</button></a></li>
                <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
@@ -185,47 +185,55 @@
             <div id="accueil_gauche">
                 <!-- Photo de profil -->
                 <h2>Bonjour, <?php echo $pseudo;?></h2>
+                
                 <div id="photo_profil">
-                        <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
+                   
+                      <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
+                  
                 </div>
                 
                 <!-- Identité -->
                 <div id="identite">
-                    <p><?php echo $prenom; ?> <?php echo $nom; ?></p>
+                    <t>  <p><?php echo $prenom; ?> <?php echo $nom; ?></p></t>
                 </div>
                 
                 <!-- Renseignements supplémentaires -->
             </div>
-            
-            <div id="accueil_droite">                
-                <!-- Publication -->
-                <form method="POST" action="Publication.php" enctype="multipart/form-data">
-
-            <p><textarea name="Publi" rows="9" cols="40"></textarea><br><br>
-                <button type="submit" name="Soumettre">Envoyer une Publication</button></p><br><br>
-
-            <p><input type="file" name="file"><br><br> 
-          <button type="submit" name="submit">Enregistrer une Image</button> </p><br><br>
-             </form>
-				
-				<!--Possibilité de créer une offre d'emploi pour un admin-->
+           
+            <!--Possibilité de créer une offre d'emploi pour un admin-->
 				<div id="boutons_administrateur">
 					<p <?php if($droit != "administrateur") { echo "style='display: none;'"; } else { echo "style='display: block;'"; } ?>>
-						<a href = "form_emploi_front.php"><input type = "submit" value = "Poster une offre d'emploi"></a>
+						<a href = "form_emploi_front.php"><button type = "submit" name="emploi"value = "Poster une offre d'emploi">Poster une offre d'emploi</button></a>
 					</p>
 				</div>
+            <div id="accueil_droite">                
+                <!-- Publication -->
+
+                <form method="POST" action="Publication.php" enctype="multipart/form-data">
+
                 
+            <p>
+                <textarea name="Publi">Votre texte !</textarea></br></br>
+                <button type="submit" name="Soumettre">Envoyer une Publication</button></p></br></br>
+
+            <p><input type="file" name="file"></br></br> 
+          <button type="submit" name="submit">Enregistrer un fichier</button> </p></br></br>
+            </form>
+				
+				
+                 
                 <!-- Les notifications -->
-                <div id="accueil_notif">
-                    <h3>Mur</h3>
+               <div id="accueil_notif" name="not">
+                    <h3>Mes notifications</h3>
                     <?php for($i = sizeof($notif_pub)-1 ; $i > -1 ; $i--){ ?>
                         <p><?php echo $notif_pub[$i];?></p>
                     <?php } ?>
                 </div>
+            
                 
                 <!-- Les demandes d'amis -->
             <form action = "reception_demande_front.php" method = "post">
-				<input type = "submit" value = "Voir les demandes d'amis">
+				<input type = "submit" name ="ami" value = "Voir les demandes d'amis">
 			</form>
             </div>
         
