@@ -204,7 +204,7 @@
             <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
             <a href="profil.php"><button>Voir mon profil</button></a>
             <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href=""><button>Mes notifications</button></a>
+            <a href="notifications.php"><button>Mes notifications</button></a>
             <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
             <a href="deconnexion.php"><button>Déconnexion</button></a>
             

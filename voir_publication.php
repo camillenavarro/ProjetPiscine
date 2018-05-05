@@ -27,12 +27,12 @@
         $id_user = $db_field7["id_user"];
     }
 
-    //On récupère les infos liées à la publication
+  /* //On récupère les infos liées à la publication
     $SQL7 = "SELECT id_user FROM connexion";
     $result7 = $db_handle->query($SQL7);
     while ($db_field7 = $result7->fetch_assoc()) { 
         $id_user = $db_field7["id_user"];
-    }
+    }*/
 ?>
 
 <html>

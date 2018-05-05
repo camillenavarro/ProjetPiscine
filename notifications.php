@@ -18,6 +18,7 @@
     $m = 0;
     $save = 0;
     $n = 0;
+    
 
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
@@ -219,7 +220,7 @@
                 <!-- Les notifications -->
                 <div id="notifications">
                     <!-- Afficher les notifications de la plus récente à la plus ancienne -->
-                    <?php for($i = 0; $i < sizeof($notif_pub)-1  ; $i++){ ?>
+                    <?php for($i = 0; $i < sizeof($notif_pub)  ; $i++){ ?>
                         <p>
                             <?php echo $notif_pub[$i];?>
                             <form action="voir_publication.php" method="post">

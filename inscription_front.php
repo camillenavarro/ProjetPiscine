@@ -47,8 +47,8 @@
                <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
                 <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
                <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
-               <li> <a href=""><button>Mes notifications</button></a></li>
-               <li> <a href=""><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
         </ul>
             </nav>

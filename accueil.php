@@ -151,10 +151,31 @@
                 while ($db_field10 = $result10->fetch_assoc()) {
                     $detail_pub = $db_field10['texte'];
                     $date_post = $db_field10['date_post'];
+                    $id_media = $db_field10['id_media'];
                 }
                 
-                $notif_pub[$m] = $texte_pub[$i] . " de " . $prenom_contact . " " . $nom_contact . "<br>Date de publication: " . $date_post . "<br>Details: " . $detail_pub;  
-                $m++;
+                //Deux types de publication:
+                //1) Les simples textes
+                if ($texte_pub[$i] == "Nouvelle publication"){
+                    $notif_pub[$m] = $texte_pub[$i] . " de " . $prenom_contact . " " . $nom_contact . "<br>Date de publication: " . $date_post . "<br>Details: " . $detail_pub;  
+                    $m++;
+                }
+                
+                //2) Les photos
+                else if ($texte_pub[$i] == "Photo") {
+                    
+                    //Il faut récupérer le nom du fichier de la photo
+                    $SQL11 = "SELECT * FROM media WHERE id_media ='$id_media'";
+                    $result11 = $db_handle->query($SQL11);
+
+                    //Récupération des résultats
+                    while ($db_field11 = $result11->fetch_assoc()) {
+                        $nom_fichier = $db_field11['nom_fichier'];
+                    }
+                    
+                    $notif_pub[$m] = $texte_pub[$i] . ' de ' . $prenom_contact . ' ' . $nom_contact . '<br>Date de publication: ' . $date_post . '<br>Details: ' . $detail_pub . '<br>' . '<img src="image/' . $nom_fichier . '" width="120px" height="120px" />';
+                    $m++;
+                }
             }
         }
     }
@@ -183,7 +204,7 @@
                <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
                 <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
                <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
-               <li> <a href=""><button>Mes notifications</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
                <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
