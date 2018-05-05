@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 05 mai 2018 à 14:19
+-- Généré le :  sam. 05 mai 2018 à 21:28
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `action` (
   `id_pub` int(11) NOT NULL COMMENT 'Clé secondaire de la publication où l''action a été effectuée',
   `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur ayant fait l''action',
   `type` varchar(15) NOT NULL COMMENT 'Commentaire, aimer ou partager',
-  `date` date NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `texte` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_action`),
   KEY `id_pub` (`id_pub`),
