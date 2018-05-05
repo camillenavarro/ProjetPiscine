@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  sam. 05 mai 2018 à 12:32
+-- Généré le :  sam. 05 mai 2018 à 14:19
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -80,6 +80,7 @@ CREATE TABLE IF NOT EXISTS `connexion` (
 --
 
 INSERT INTO `connexion` (`id_user`) VALUES
+(1),
 (3);
 
 -- --------------------------------------------------------
@@ -269,13 +270,13 @@ CREATE TABLE IF NOT EXISTS `media` (
   `id_media` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire du media',
   `id_user` int(11) NOT NULL COMMENT 'Clé secondaire de l''utilisateur auquel appartient le média',
   `type` varchar(6) NOT NULL COMMENT 'Video ou photo',
-  `nom_fichier` varchar(30) NOT NULL COMMENT 'Nom du fichier contenant le média',
+  `nom_fichier` text NOT NULL COMMENT 'Nom du fichier contenant le média',
   `titre` varchar(30) NOT NULL COMMENT 'Titre du média',
   `lieu` varchar(20) DEFAULT NULL COMMENT 'Lieu où a été pris le média',
   `date` date DEFAULT NULL COMMENT 'Date ou a été pris le média',
   PRIMARY KEY (`id_media`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 COMMENT='Informations sur les médias';
 
 --
 -- Déchargement des données de la table `media`
@@ -289,7 +290,9 @@ INSERT INTO `media` (`id_media`, `id_user`, `type`, `nom_fichier`, `titre`, `lie
 (8, 2, 'photo', 'montagne.jpg', 'Fond', NULL, NULL),
 (9, 3, 'photo', 'montagne.jpg', 'Fond', NULL, NULL),
 (10, 5, 'photo', 'carnet.jpg', 'Fond', NULL, NULL),
-(11, 5, 'photo', 'rim.jpg', 'Fond', NULL, NULL);
+(11, 5, 'photo', 'rim.jpg', 'Fond', NULL, NULL),
+(15, 6, 'photo', '5aedbd07677d64.70619126.png', 'Album', NULL, NULL),
+(16, 6, 'photo', '5aedbd370a9db2.20072947.png', 'Album', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -340,7 +343,7 @@ CREATE TABLE IF NOT EXISTS `notif_pub` (
   PRIMARY KEY (`id_notifpub`),
   KEY `id_user` (`id_user`),
   KEY `id_pub` (`id_pub`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Information sur les notifications de publication';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Information sur les notifications de publication';
 
 --
 -- Déchargement des données de la table `notif_pub`
@@ -351,7 +354,10 @@ INSERT INTO `notif_pub` (`id_notifpub`, `id_user`, `id_pub`, `texte`) VALUES
 (2, 6, 2, 'Nouvelle publication'),
 (3, 1, 3, 'Nouvelle publication'),
 (4, 2, 4, 'Nouvelle publication'),
-(5, 3, 5, 'Nouvelle publication');
+(5, 3, 5, 'Nouvelle publication'),
+(6, 6, 6, 'Nouvelle publication'),
+(7, 6, 7, 'Photo'),
+(8, 6, 8, 'Photo');
 
 -- --------------------------------------------------------
 
@@ -409,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
   PRIMARY KEY (`id_pub`),
   KEY `id_user` (`id_user`),
   KEY `id_media` (`id_media`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations d''une publication';
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COMMENT='Informations d''une publication';
 
 --
 -- Déchargement des données de la table `publication`
@@ -420,7 +426,10 @@ INSERT INTO `publication` (`id_pub`, `id_user`, `id_media`, `type`, `date_post`,
 (2, 6, NULL, 'texte', '2018-05-05 11:25:38', 'deuxième publication', NULL, 'publique'),
 (3, 1, NULL, 'texte', '2018-05-05 11:26:02', 'troisième notification', NULL, 'publique'),
 (4, 2, NULL, 'texte', '2018-05-05 11:26:18', 'quatrième notification', NULL, 'publique'),
-(5, 3, NULL, 'texte', '2018-05-05 11:28:24', 'Cinquième publication', NULL, 'publique');
+(5, 3, NULL, 'texte', '2018-05-05 11:28:24', 'Cinquième publication', NULL, 'publique'),
+(6, 6, NULL, 'texte', '2018-05-05 14:17:21', 'coucou, le projet est pour ce soir', NULL, 'publique'),
+(7, 6, 15, 'photo', '2018-05-05 14:17:43', NULL, NULL, 'publique'),
+(8, 6, 16, 'photo', '2018-05-05 14:18:31', 'c\'est un test pour voir si le texte marche', NULL, 'publique');
 
 -- --------------------------------------------------------
 
