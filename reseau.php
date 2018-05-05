@@ -108,18 +108,20 @@
 ?>
 <html>
 	<head>
+	<link href="reseau.css" rel="stylesheet"/>
 		<title>Mon réseau</title>
 		<meta charset = "uft-8" />
 	</head>
 	<body>
-		<a href="accueil.php"><button>Accueil</button></a>
-        <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-        <a href="profil.php"><button>Voir mon profil</button></a>
-        <a href="reseau.php"><button>Mon réseau</button></a>
-        <a href="notifications.php"><button>Mes notifications</button></a>
-        <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-        <a href="deconnexion.php"><button>Déconnexion</button></a>
-			
+		<ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
 		<h1>Mon réseau</h1> 
 		<h2>Rechercher un utilisateur</h2>
 		<form action = "rechercher.php" method = "post">

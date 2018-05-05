@@ -1,0 +1,70 @@
+html{
+    background-image: url(fond.jpg);
+   color:white;
+   font-size:120%;
+  
+}
+.menu{
+    position: relative;
+    width:200%;
+    background-image: url(ban.jpg);
+    height:75px;
+    margin-left:-60px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+}
+.menu>ul{
+    width: 20%;
+  
+}
+.menu>li{
+    position: relative;
+    list-style:none;
+    display:inline-table;
+
+}
+.menu>li>a>button{
+    margin-top:10px;
+    height:50px;
+    width:200px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+.menu>li>a>button:hover{
+    color:gold;
+
+}
+input[type="submit"]
+{
+    margin-top:10px;
+    height:50px;
+    width:200px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+img{
+    border:solid 4px white;
+
+}
+input[type="submit"]:hover
+{
+    color:gold;
+
+}
+h1{
+    margin-left:500px;
+}
+h2{
+    margin-left:500px;
+}
+table{
+    margin-left:500px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+}
+input[value="Rechercher"]
+{
+    margin-left:500px;
+}
