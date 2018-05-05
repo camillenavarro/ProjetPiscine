@@ -218,7 +218,8 @@
                 <!-- Photo de profil -->
                 <h2>Mes notifications</h2>
                 <!-- Les notifications -->
-                <div id="notifications">
+                <div id="notifications_pub">
+                    <h3>Les publications</h3>
                     <!-- Afficher les notifications de la plus récente à la plus ancienne -->
                     <?php for($i = 0; $i < sizeof($notif_pub)  ; $i++){ ?>
                         <p>
@@ -229,6 +230,10 @@
                         
                     <?php } ?>
                     </p>
+                </div>
+            
+            <div id="notifications_actions">
+                    <h3>Les réactions</h3>
                 </div>
             </div>
         </ul>
