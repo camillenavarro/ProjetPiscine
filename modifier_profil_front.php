@@ -108,6 +108,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link href="accueil.css" rel="stylesheet"/>
         <meta charset = "uft-8" />
         <title>Modifier mon profil</title>
         <script type="text/javascript">
@@ -131,15 +132,15 @@
     </head>
     
     <body>
-        
-            <a href="accueil.php"><button>Accueil</button></a>
-            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-            <a href="profil.php"><button>Voir mon profil</button></a>
-            <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href=""><button>Mes notifications</button></a>
-            <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-            <a href="deconnexion.php"><button>Déconnexion</button></a>
-        
+    <ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
         <h2>Modifier mes informations:</h2>
         
         <form action="modifier_profil_back.php" method="post">
