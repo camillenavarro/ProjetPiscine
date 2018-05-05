@@ -14,32 +14,31 @@ html{
 }
 .menu>ul{
     width: 20%;
-  
 }
 .menu>li{
     position: relative;
     list-style:none;
     display:inline-table;
-
- 
-   
 }
 .menu>li>a>button{
     margin-top:10px;
     height:50px;
-    width:150px;
+    width:200px;
     background-image:url(bouton.jpg);
     color:white;
-    
-
-   
+    font-size:100%;
 }
+
 /* graphisme de titre */
 h2{
     margin-left:22.5%;
     font-size:300%;
     font-weight: bold;
     color:whitesmoke;
+}
+.menu>li>a>button:hover{
+    color:gold;
+
 }
 /* graphisme du message informant les obligations */
 p{
@@ -57,18 +56,18 @@ i{
 table{
     font-weight: bold;
     margin-left:20%;
-    font-size: 130%;
+    font-size: 180%;
 }
 /* graphisme du bouton enregistrer */
 button{
     height:50px;
-    width:100px;
+    width:150px;
     background-image:url(bouton.jpg);
     color:white;
     margin-top:3%;
     margin-left:20%;
     font-weight: bold;
-    font-size:75%;
+    font-size:100%;
 }
 /* effet du bouton quand on appuie dessus */
 button:hover{
@@ -95,7 +94,7 @@ display:table-column;
 select{
     height:40px;
     width: 125px;
-    font-size:75%;
+    font-size:100%;
 }
 /* graphisme et position de la ligne conectez vous */
 r{
