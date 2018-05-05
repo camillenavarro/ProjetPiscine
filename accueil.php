@@ -325,8 +325,8 @@
 			{ 
 			?>
                         <p><?php echo $notif_pub[$i]; ?></p>
-			<p><?php if($aime > 0) { echo $aime[$i]; ?> aiment ça. <?php } ?>
-			<br><?php if($partage > 0) { echo $partage[$i]; ?> ont partagé.<?php } ?>
+			<p><?php if($aime > 0) { echo $aime[sizeof($id_pub) - 1 - $i]; ?> aiment ça. <?php } ?>
+			<br><?php if($partage > 0) { echo $partage[sizeof($id_pub) - 1 - $i]; ?> ont partagé.<?php } ?>
 			<?php echo $commentaires[sizeof($id_pub) - 1 - $i]; ?></p>
 				<form action = "reactions.php" method = "post">
 
