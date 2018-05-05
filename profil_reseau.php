@@ -12,6 +12,9 @@
         }
     }
     $pseudo_reseau = $reseau[$index];
+
+    $pub = array();
+    $m = 0;
 	
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
@@ -174,7 +177,40 @@
 			}
 		}
 		$result8->free();
-	}		
+	}
+
+    //Récupérer les informations liées aux publications
+    $SQL9 = "SELECT * FROM publication WHERE id_user='$id_user'";
+    $result9 = $db_handle->query($SQL9);
+    
+    //Récupération des résultats
+    while ($db_field9 = $result9->fetch_assoc()) { 
+        $id_media= $db_field9["id_media"];   
+        $type= $db_field9["type"]; 
+        $date_post= $db_field9["date_post"];  
+        $texte= $db_field9["texte"];  
+        
+        if($type == "photo"){
+            //Il faut récupérer le nom du fichier de la photo
+            $SQL11 = "SELECT * FROM media WHERE id_media ='$id_media'";
+            $result11 = $db_handle->query($SQL11);
+
+            //Récupération des résultats
+            while ($db_field11 = $result11->fetch_assoc()) {
+                $nom_fichier = $db_field11['nom_fichier'];
+            }
+                    
+            $pub[$m] =  $prenom . ' ' . $nom . ' a ajouté une nouvelle photo ! <br>Date de publication: ' . $date_post . '<br>Description de l\'image: ' . $texte . '<br>' . '<img src="image/' . $nom_fichier . '" width="120px" height="120px" />';
+            $m++;
+        }
+        else {
+            $pub[$m] = $prenom . ' ' . $nom . ' a publié un nouvel évènement !<br>Date de publication: ' . $date_post . "<br>Détails: " . $texte;  
+            $m++;
+        }
+    }
+
+    //Libérations des résultats de la photo de profil
+    $result9->free();
 	
     //Libération des résultats
     $result->free();
@@ -331,6 +367,10 @@
                 <!-- Evénements récents -->
                 <div id="evenements">
                     <h2>Evénements récents</h2>
+                     <?php for($i = sizeof($pub)- 1; $i > -1   ; $i--){ ?>
+                        <p>
+                            <?php echo $pub[$i]; } ?>
+                    </p>
                 </div>
 
                 <!-- Albums -->
