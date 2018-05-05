@@ -1,4 +1,5 @@
 <?php
+	session_start();
     //Variables 
     $id_contacts = array();
     $id_pub = array();
@@ -7,6 +8,7 @@
     $nom_contact = array();
     $prenom_contact = array();
     $date_post = array();
+    $id_pub_user = array();
 
     $i = 0;
     $j = 0;
@@ -123,9 +125,10 @@
 
 
     //3) On regarde si l'auteur de la notification correspond à un contact de l'utilisateur
-    for($i = 0 ; $i < sizeof($id_pub) ; $i++)
+    for($i = sizeof($id_pub) - 1; $i > -1  ; $i--)
     {
-        for($j = 0 ; $j < sizeof($id_contacts) ; $j++)
+	array_push($id_pub_user, $id_pub[$i] );
+        for($j = sizeof($id_contacts) - 1 ; $j > -1  ; $j--)
         {
             if($id_auteur_pub[$i] == $id_contacts[$j]){
                 
@@ -155,6 +158,8 @@
         }
     }
         
+    $_SESSION['id_pub'] = $id_pub_user;
+
     //Libération des résultats
     $result->free();
 
@@ -223,10 +228,24 @@
 				
                  
                 <!-- Les notifications -->
-               <div id="accueil_notif" name="not">
-                    <h3>Mes notifications</h3>
-                    <?php for($i = sizeof($notif_pub)-1 ; $i > -1 ; $i--){ ?>
-                        <p><?php echo $notif_pub[$i];?></p>
+                <div id="accueil_notif">
+                    <h3>Mur</h3>
+                    <?php for($i = 0; $i < sizeof($notif_pub)  ; $i++)
+			{ 
+			?>
+                        <p><?php echo $notif_pub[$i]; ?></p>
+				<form action = "reactions.php" method = "post">
+
+				<input type = "submit" value = "Aimer" name = "<?php echo $i; ?>">
+				<input type = "submit" value = "Partager" name = "<?php echo $i; ?>">
+				<table>
+					<tr>
+						<td>Commentaire : </td>
+						<td><input type = "text" name = "comm"></td>
+						<td><input type = "submit" name = "<?php echo $i; ?>" value = "Commenter"></td>
+					</tr>
+				</table>
+				</form>
                     <?php } ?>
                 </div>
             
