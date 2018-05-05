@@ -1,32 +1,49 @@
+/* Ceci est pour mettre l'image de fond et faire que tous les textes soient blanc par défaut*/
 html{
     background-image: url(fond.jpg);
+    color:white;
+  
 }
-
+/*graphisme du bouton s'enregistrer*/
 button{
     height:50px;
     background-image:url(bouton.jpg);
     color:white;
     width: 150px;
-    font-size: 100%
+    font-size: 100%;
     
 }
+/*graphisme du bouton connexion*/
+form>button{
+    height:50px;
+    background-image:url(bouton.jpg);
+    color:white;
+    width: 150px;
+    font-size: 100%;
+    margin-left:25%;
+    
+}
+/*quand on clique sur le bouton*/
 button:focus{
 
     color:lightskyblue;
     
 }
+/*Changer la taille des boites texte */
 body>form>input[type="text"]{
     width: 200px;
     height: 25px;
 }
+/*Changer la taille des boites password */
 body>form>input[type="password"]{
     width: 200px;
     height: 25px;
 }
+/*fait en sorte que le formulaire soit centré */
 body>form{
-    margin:15%;
+    margin-top:150px;
     margin-left: 45%;
     margin-right: 50%;
 font-size: 118%;
-   color:white;
+
 }
