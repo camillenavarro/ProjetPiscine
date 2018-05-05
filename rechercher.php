@@ -48,7 +48,7 @@
 	
 	for($i = 0; $i < sizeof($pseudo) ; $i++)
 	{
-		if($fonction[$i] == "Etudiant")
+		if($fonction[$i] != "Employe")
 		{
 			$SQL3 = "SELECT * FROM etudiant WHERE id_user = '$id_user[$i]'";
 			$result3 = $db_handle->query($SQL3);
@@ -141,8 +141,6 @@
 				</td>
 				<td>
 				<?php echo $prenom; ?> "<?php echo $pseudo[$i]; ?>" <?php echo $nom; ?>
-				<br>
-				<?php echo $pseudo[$i]; ?> 
 				<br>
 				<?php echo $fonction[$i]; ?> 
 				<?php if($fonction[$i] == "Etudiant" || $fonction[$i] == "Etudiante") { ?> en <?php echo $etudes[$i]; ?> en <?php echo $annees[$i]; ?> e année. <?php } ?>
