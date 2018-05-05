@@ -11,6 +11,7 @@
         }
     }
 
+	$_SESSION['id_pub'] = $id_pub_user;
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -99,6 +100,18 @@
                             echo '<img src="image/' . $nom_fichier . '"/>';
                         }
                     ?></p>
+				<form action = "reactions.php" method = "post">
+
+				<input type = "submit" value = "Aimer" name = "0">
+				<input type = "submit" value = "Partager" name = "0">
+				<table>
+					<tr>
+						<td>Commentaire : </td>
+						<td><input type = "text" name = "comm"></td>
+						<td><input type = "submit" name = "0" value = "Commenter"></td>
+					</tr>
+				</table>
+				</form>
             </div>
         </ul>
     
