@@ -122,6 +122,7 @@
         if($nombre > 0){
                 $SQL8 = "SELECT * FROM notif_pub WHERE id_user='$id_contacts[$i]'";
                 $result8 = $db_handle->query($SQL8);
+                $m++;
 
                 //Récupération des résultats
                 while ($db_field8 = $result8->fetch_assoc()) {
@@ -213,7 +214,7 @@
                     <h3>Mes notifications</h3>
                     <!-- On affiche les notifications par contact -->
                     <!-- Ouverture de la boucle for -->
-                    <?php for($n = sizeof($id_contacts) ; $n > 0  ; $n--) { ?>
+                    <?php for($n = $m ; $n > 0  ; $n--) { ?>
                         <h4><?php echo $prenom_contact[$n]; ?> <?php echo $nom_contact[$n]; ?></h4>
                     
                     <?php for($i = sizeof($id_pub)-1 ; $i > -1  ; $i--) { ?>
