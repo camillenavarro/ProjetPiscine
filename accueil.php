@@ -10,6 +10,12 @@
     $date_post = array();
     $id_pub_user = array();
     $notif_pub = array();
+    $aime = array();
+    $partage = array();
+    $comm = array();
+    $nom_comm = array();
+    $prenom_comm = array();
+    $commentaires = array();
 
     $i = 0;
     $j = 0;
@@ -178,6 +184,69 @@
                 }
             }
         }
+	    // Récupère les réactions de la publication
+		$SQL13 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'aime'";
+		$result13 = $db_handle->query($SQL13);
+		
+		while ($db_field13 = $result13->fetch_assoc()) 
+		{
+			$aime[$i] = $db_field13['COUNT(id_action)'];
+		}
+		
+		$SQL14 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'partage'";
+		$result14 = $db_handle->query($SQL14);
+		
+		while ($db_field14 = $result14->fetch_assoc()) 
+		{
+			$partage[$i] = $db_field14['COUNT(id_action)'];
+		}
+		
+		$SQL17 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'commentaire'";
+		$result17 = $db_handle->query($SQL17);
+		
+		while ($db_field17 = $result17->fetch_assoc()) 
+		{
+			$nb_comm = $db_field17['COUNT(id_action)'];
+		}
+		
+		$SQL15 = "SELECT * FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'commentaire'";
+		$result15 = $db_handle->query($SQL15);
+		$commentaires[$i] = "";
+		
+		for($p = 0 ; $p < $nb_comm ; $p++)
+		{
+			$nom_comm[$p] = "";
+			$prenom_comm[$p] = "";
+		}
+		
+		$p = 0;
+		
+		if($nb_comm > 0)
+		{
+			while ($db_field15 = $result15->fetch_assoc()) 
+			{
+				$id_comm[$p] = $db_field15['id_user'];
+				$comm[$p] = $db_field15['texte'];
+				$p++;
+			}
+			
+			
+			for($p = 0 ; $p < $nb_comm ; $p++)
+			{
+				$SQL16 = "SELECT * FROM utilisateur WHERE id_user = '$id_comm[$p]'";
+				$result16 = $db_handle->query($SQL16);
+				
+				while ($db_field16 = $result16->fetch_assoc()) 
+				{
+					$nom_comm[$p] = $db_field16['nom'];
+					$prenom_comm[$p] = $db_field16['prenom'];
+				}
+				
+				$commentaires[$i] .= "<br>" . $prenom_comm[$p] . " " . $nom_comm[$p] . " : " . $comm[$p] ;
+				
+			}
+			
+		}
     }
         
     $_SESSION['id_pub'] = $id_pub_user;
@@ -256,6 +325,9 @@
 			{ 
 			?>
                         <p><?php echo $notif_pub[$i]; ?></p>
+			<p><?php if($aime > 0) { echo $aime[$i]; ?> aiment ça. <?php } ?>
+			<br><?php if($partage > 0) { echo $partage[$i]; ?> ont partagé.<?php } ?>
+			<?php echo $commentaires[sizeof($id_pub) - 1 - $i]; ?></p>
 				<form action = "reactions.php" method = "post">
 
 				<input type = "submit" value = "Aimer" name = "<?php echo $i; ?>">
