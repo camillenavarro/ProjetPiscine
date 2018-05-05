@@ -38,3 +38,12 @@
 	else
 		echo "$error";
 ?>
+
+<html>
+<head>
+
+	<link href="login.css" rel="stylesheet">
+	<title>Erreur</title>
+
+</head>
+</html>
