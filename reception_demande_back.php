@@ -44,4 +44,6 @@
 	$SQL4 = "DELETE FROM demande_ami WHERE id_demande = '$id_demande'";
 	$db_handle->query($SQL4);
 	
+	header("Location: accueil.php");
+	
 ?>
