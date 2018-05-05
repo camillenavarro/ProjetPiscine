@@ -172,22 +172,24 @@
 
 <html>
     <head>
+    <link href="profil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Profil de <?php echo $prenom; ?> <?php echo $nom; ?> </title>
     </head>
     
     <body>
         <!-- Div principal -->
-        <div class="conteneur">
+        <ul class="conteneur">
             
-            <a href="accueil.php"><button>Accueil</button></a>
-            <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-            <a href="profil.php"><button>Voir mon profil</button></a>
-            <a href="reseau.php"><button>Mon réseau</button></a>
-            <a href="notifications.php"><button>Mes notifications</button></a>
-            <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-            <a href="deconnexion.php"><button>Déconnexion</button></a>
-            
+        <ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
             <!-- Type d'utilisateur -->
             <div id="droit">
                 <h3>Profil <?php echo $droit; ?></h3>
@@ -256,7 +258,7 @@
                 </div>
                 <!-- Fin de la colonne de droite -->
             </div>
-        </div>
+        </ul>
     </body>
 
 </html>
