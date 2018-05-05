@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  ven. 04 mai 2018 à 23:46
+-- Généré le :  sam. 05 mai 2018 à 12:32
 -- Version du serveur :  5.7.21
 -- Version de PHP :  5.6.35
 
@@ -75,6 +75,13 @@ CREATE TABLE IF NOT EXISTS `connexion` (
   PRIMARY KEY (`id_user`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Déchargement des données de la table `connexion`
+--
+
+INSERT INTO `connexion` (`id_user`) VALUES
+(3);
+
 -- --------------------------------------------------------
 
 --
@@ -91,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `contact` (
   PRIMARY KEY (`id_contact`),
   KEY `id_user` (`id_user`),
   KEY `id_user_contact` (`id_user_contact`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1 COMMENT='Informations sur les contacts des utilisateurs';
 
 --
 -- Déchargement des données de la table `contact`
@@ -109,7 +116,13 @@ INSERT INTO `contact` (`id_contact`, `id_user`, `id_user_contact`, `type`, `rest
 (20, 1, 5, 'ami', 'non'),
 (21, 5, 1, 'ami', 'non'),
 (22, 6, 5, 'collegue', 'non'),
-(23, 5, 6, 'collegue', 'non');
+(23, 5, 6, 'collegue', 'non'),
+(24, 6, 3, 'collegue', 'non'),
+(25, 3, 6, 'collegue', 'non'),
+(26, 1, 3, 'ami', 'non'),
+(27, 3, 1, 'ami', 'non'),
+(28, 5, 3, 'ami', 'non'),
+(29, 3, 5, 'ami', 'non');
 
 -- --------------------------------------------------------
 
@@ -172,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `demande_ami` (
   `id_contact` int(11) NOT NULL COMMENT 'id de celui qui recoit la demande',
   `type` text NOT NULL COMMENT 'ami ou collegue',
   PRIMARY KEY (`id_demande`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -327,7 +340,18 @@ CREATE TABLE IF NOT EXISTS `notif_pub` (
   PRIMARY KEY (`id_notifpub`),
   KEY `id_user` (`id_user`),
   KEY `id_pub` (`id_pub`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Information sur les notifications de publication';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Information sur les notifications de publication';
+
+--
+-- Déchargement des données de la table `notif_pub`
+--
+
+INSERT INTO `notif_pub` (`id_notifpub`, `id_user`, `id_pub`, `texte`) VALUES
+(1, 2, 1, 'Nouvelle publication'),
+(2, 6, 2, 'Nouvelle publication'),
+(3, 1, 3, 'Nouvelle publication'),
+(4, 2, 4, 'Nouvelle publication'),
+(5, 3, 5, 'Nouvelle publication');
 
 -- --------------------------------------------------------
 
@@ -385,7 +409,18 @@ CREATE TABLE IF NOT EXISTS `publication` (
   PRIMARY KEY (`id_pub`),
   KEY `id_user` (`id_user`),
   KEY `id_media` (`id_media`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Informations d''une publication';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COMMENT='Informations d''une publication';
+
+--
+-- Déchargement des données de la table `publication`
+--
+
+INSERT INTO `publication` (`id_pub`, `id_user`, `id_media`, `type`, `date_post`, `texte`, `statut`, `acces`) VALUES
+(1, 2, NULL, 'texte', '2018-05-05 11:25:16', 'Première publication ', NULL, 'publique'),
+(2, 6, NULL, 'texte', '2018-05-05 11:25:38', 'deuxième publication', NULL, 'publique'),
+(3, 1, NULL, 'texte', '2018-05-05 11:26:02', 'troisième notification', NULL, 'publique'),
+(4, 2, NULL, 'texte', '2018-05-05 11:26:18', 'quatrième notification', NULL, 'publique'),
+(5, 3, NULL, 'texte', '2018-05-05 11:28:24', 'Cinquième publication', NULL, 'publique');
 
 -- --------------------------------------------------------
 
