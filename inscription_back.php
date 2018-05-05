@@ -117,3 +117,9 @@
 			echo "$error" ;
 	
 ?>
+<html>
+	<head>
+		<link href="inscription_front.css" rel="stylesheet">
+		<title>Erreur</title>
+	</head>
+</html>
