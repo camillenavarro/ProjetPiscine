@@ -11,6 +11,11 @@
     $prenom_contact = array();
     $date_post = array();
     $id_pub_user = array();
+    $publi = array();
+    $id_acteur = array();
+    $type_action = array();
+    $nom_acteur = array();
+    $prenom_acteur = array();
 
     $i = 0;
     $j = 0;
@@ -183,6 +188,50 @@
             }
         }
     }
+	
+	$SQL12 = "SELECT * FROM publication WHERE id_user = '$id_user'";
+	$result12 = $db_handle->query($SQL12);
+	$k = 0;
+	while($db_field12 = $result12->fetch_assoc())
+	{
+		$publi[$k] = $db_field12['id_pub'];
+		$k++;
+	}
+	
+	for($k = 0 ; $k < sizeof($publi) ; $k ++)
+	{
+		$SQL13 = "SELECT * FROM action WHERE id_pub = '$publi[$k]'";
+		$result13 = $db_handle->query($SQL13);
+		
+		$l = 0 ;
+		
+		while($db_field13 = $result13->fetch_assoc())
+		{
+			$id_acteur[$l] = $db_field13['id_user'];
+			$type_action[$l] = $db_field13['type'];
+			$l++;
+		}
+		
+		$notif_act[$k] = "";
+		
+		for($l = 0; $l < sizeof($id_acteur) ; $l++)
+		{
+			$SQL14 = "SELECT * FROM utilisateur WHERE id_user = '$id_acteur[$l]'";
+			$result14 = $db_handle->query($SQL14);
+		
+		
+			while($db_field14 = $result14->fetch_assoc())
+			{
+				$nom_acteur[$l] = $db_field14['nom'];
+				$prenom_acteur[$l] = $db_field14['prenom'];
+			}
+			
+			$notif_act[$k] .= '<br>' . $nom_acteur[$l] . ' ' . $prenom_acteur[$l] . ' a mis un ' . $type_action[$l] . ' sur votre publication.' ;
+			
+		}
+		
+		
+	}
 
     //On fait passé le taleau de notification 
     $_SESSION['id_pub'] = $id_pub_user;
@@ -214,7 +263,7 @@
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
             
-            <div name="not" id="notif_centre">
+            <div id="notif_centre">
                 <!-- Photo de profil -->
                 <h2>Mes notifications</h2>
                 <!-- Les notifications -->
@@ -234,6 +283,14 @@
             
             <div id="notifications_actions">
                     <h3>Les réactions</h3>
+					<?php for($i = 0; $i < sizeof($notif_act)  ; $i++){ ?>
+                        <p>
+                            <?php echo $notif_act[$i];?>
+                            <form action="voir_publication.php" method="post">
+                                <input type="submit" value="Voir la publication" name="<?php echo $i; ?>">
+                            </form>
+                        
+                    <?php } ?>
                 </div>
             </div>
         </ul>
