@@ -9,6 +9,7 @@
     $prenom_contact = array();
     $date_post = array();
     $id_pub_user = array();
+    $notif_pub = array();
 
     $i = 0;
     $j = 0;
