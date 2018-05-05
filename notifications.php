@@ -263,7 +263,7 @@
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
             
-            <div id="notif_centre">
+            <div name="not" id="notif_centre">
                 <!-- Photo de profil -->
                 <h2>Mes notifications</h2>
                 <!-- Les notifications -->
