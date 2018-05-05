@@ -1,3 +1,4 @@
+
 <?php
 	$entreprise = isset($_POST["entreprise"]) ? $_POST["entreprise"] : "" ;
 	$type = $_POST["type"] ;
@@ -42,3 +43,12 @@
 	header("Location: accueil.php");
 
 ?>
+
+<html>
+<head>
+
+	<link href="login.css" rel="stylesheet">
+	<title>Erreur</title>
+
+</head>
+</html>
