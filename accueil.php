@@ -199,30 +199,14 @@
             
             <div id="accueil_droite">                
                 <!-- Publication -->
-                <form action="publication.php" method="post">
-                <p>
-					<tr>
-						<td><label for="Pub">Publication :</label></td>
-						
-						<br />
-					</tr>
-                    <tr>
-                        <td>  <textarea name="Pub" cols="40" rows="5" value="Votre texte..."></textarea></td>
-                        <br>
-                    </tr>
-					<tr> 
-						<td> <input type="submit" name="Soumettre" value="Soumettre"></td>
-					</tr>  
-				</p >
-                    
-                    
-				</form>
-				<form method="post" action="pub.php" enctype="multipart/form-data">
-				<p>
-					<input type="file" name="fic"/><br>
-					<input type="submit"name="envoyer le fichier" value ="envoyer le fichier"/>
-				</p>
-				</form>
+                <form method="POST" action="Publication.php" enctype="multipart/form-data">
+
+            <p><textarea name="Publi"></textarea></br></br>
+                <button type="submit" name="Soumettre">Envoyer une Publication</button></p></br></br>
+
+            <p><input type="file" name="file"></br></br> 
+          <button type="submit" name="submit">Enregistrer une Image</button> </p></br></br>
+             </form>
 				
 				<!--Possibilité de créer une offre d'emploi pour un admin-->
 				<div id="boutons_administrateur">
