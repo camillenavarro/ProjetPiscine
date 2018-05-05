@@ -26,4 +26,6 @@
 	$SQL3 = "DELETE FROM contact WHERE (id_user = '$id_moi' AND id_user_contact = '$id_contact') OR (id_user_contact = '$id_moi' AND id_user = '$id_contact')";
 	$db_handle->query($SQL3);
 	
+	header("Location: reseau.php");
+	
 ?>

@@ -51,5 +51,5 @@
 	$SQL10 = "DELETE FROM utilisateur WHERE id_user = '$id_user'";
 	$db_handle->query($SQL10);
 	
-	echo "Suppression de $pseudo reussie !";
+	header("Location: profil.php");
 ?>

@@ -187,6 +187,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Profil de <?php echo $prenom; ?> <?php echo $nom; ?> </title>
+		<script type = "text/javascript"> 
+			function confirmer(message, lien) { 
+				if(confirm(message))
+				{ window.location = lien; }
+			} 
+		</script>
+
     </head>
     
     <body>
@@ -274,9 +281,9 @@
 					<p><input type="submit" value="Envoyer un message" name="message"></p>
 
 					<!-- Supprimer du réseau -->
-					<p><form action = "suppr_ami.php">
-					<input type="submit" value="Supprimer du réseau" name="suppression_reseau">
-					</form></p>
+					<p>
+					<input type="submit" value="Supprimer du réseau" name="suppression_reseau" onClick = "confirmer('Supprimer ce membre de votre réseau ?', 'suppr_ami.php')">
+					</p>
 					<?php
 							}
 						}
@@ -335,7 +342,7 @@
 						<a href = "modifier_profil_front.php"><input type="submit" value="Modifier l'utilisateur"></a>
 					</p>
 					<p <?php if($mon_droit != "administrateur") {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>
-						<a href = "supprimer_user.php"><input type="submit" value="Supprimer l'utilisateur" name="suppression_admin"></a>
+						<input type="submit" value="Supprimer l'utilisateur" name="suppression_admin" onClick = "confirmer('Supprimer définitivement cet utilisateur ?','supprimer_user.php'" >
 					</p>
 				
 				</div>
