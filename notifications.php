@@ -149,7 +149,7 @@
                     $date_post = $db_field10['date_post'];
                 }
                 
-                $notif_pub[$m] = $prenom_contact . " " . $nom_contact . "<br>" . $detail_pub;  
+                $notif_pub[$m] = $prenom_contact . " " . $nom_contact . "<br>Details: " . $detail_pub;  
                 $m++;
             }
         }
@@ -177,7 +177,7 @@
                <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
                 <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
                <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
-               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href=""><button>Mes notifications</button></a></li>
                <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
@@ -201,7 +201,7 @@
                 <!-- Publication -->
                 <form method="POST" action="Publication.php" enctype="multipart/form-data">
 
-            <p><textarea name="Publi" rows="9" cols="40"></textarea><br><br>
+            <p><textarea name="Publi"></textarea><br><br>
                 <button type="submit" name="Soumettre">Envoyer une Publication</button></p><br><br>
 
             <p><input type="file" name="file"><br><br> 
@@ -217,7 +217,7 @@
                 
                 <!-- Les notifications -->
                 <div id="accueil_notif">
-                    <h3>Mur</h3>
+                    <h3>Mes notifications</h3>
                     <?php for($i = sizeof($notif_pub)-1 ; $i > -1 ; $i--){ ?>
                         <p><?php echo $notif_pub[$i];?></p>
                     <?php } ?>
