@@ -17,7 +17,7 @@
 ?>
 <html>
 	<head>
-		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="inscription_front.css" rel="stylesheet">
 		<title><?php if($admin == true) {echo "Ajouter un nouvel utilisateur";} else {echo "S'enregistrer";} ?></title>
 		<meta charset = "uft-8" />
         <script type="text/javascript">
@@ -51,52 +51,54 @@
                 <a href="deconnexion.php"><button>Déconnexion</button></a>
             </div>
             <h2><?php if($admin == true) {echo "Ajouter un nouvel utilisateur";} else {echo "S'enregistrer";} ?></h2>
-            <p>Les champs marques d'un * sont obligatoires.</p>
+            <p>Les champs marques d'un <i>*</i> sont obligatoires.</p>
 
             <form action="inscription_back.php" method="post">
                 <table>
                     <tr>
-                        <td>Adresse mail * :</td>
-                        <td><input type = "text" name = "mail"></td>
+                        <td>Adresse mail<i>*</i> :</td>
+                        <td><input type = "text" name = "mail"><br><br>
+
+            </td>
                     </tr>
 
                     <tr>
-                        <td>Nom d'utilisateur * :</td>
-                        <td><input type = "text" name = "pseudo"></td>
+                        <td>Nom d'utilisateur<i>*</i> :</td>
+                        <td><input type = "text" name = "pseudo"><br><br></td>
                     </tr>
 
                     <tr>
-                        <td>Mot de passe * :</td>
-                        <td><input type = "password" name = "mdp"></td>
+                        <td>Mot de passe<i>*</i> :</td>
+                        <td><input type = "password" name = "mdp"><br><br></td>
                     </tr>
 
                     <tr>
-                        <td>Confirmer le mot de passe * :</td>
-                        <td><input type = "password" name = "confirm"></td>
+                        <td>Confirmer le mot de passe<i>*</i> :</td>
+                        <td><input type = "password" name = "confirm"><br><br></td>
                     </tr>
 
                     <tr>
-                        <td>Occupation * :</td>
+                        <td>Occupation<i>*</i> :</td>
                         <td><select name = "fonction" onchange="showfield(this.options[this.selectedIndex].value)">
                                 <option value="Etudiant">Etudiant</option>
                                 <option value="Apprenti">Apprenti</option>
                                 <option value="Employe">Employe</option>
-                            </select></td>
+                            </select><br><br></td>
                     </tr>
 
                     <tr id="ifyesEmp" style='display: none;' >
-                        <td>Emploi * (si employe) :</td>
-                        <td><input type = "text" name = "emploi"></td>
+                        <td>Emploi<i>*</i> :</td>
+                        <td><input type = "text" name = "emploi"><br><br></td>
                     </tr>
 
                     <tr id="ifyesEtu">
-                        <td>Degre d'etude * (si etudiant) :</td>
+                        <td>Degre d'etude<i>*</i> :</td>
                         <td><select name = "degre">
                                 <option>Non renseigne</option>
                                 <option>license</option>
                                 <option>master</option>
-                            </select></td>
-                        <td>Annee d'etude * (si etudiant) :</td>
+                            </select><br><br></td>
+                        <td>Annee d'etude<i>*</i> :</td>
                         <td><select name = "annee">
                                 <option>Non renseigne</option>
                                 <option>1</option>
@@ -104,34 +106,34 @@
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
-                            </select></td>
+                            </select><br><br></td>
                     </tr>
                     
                     <tr id="ifyesApp" style='display: none;'>
-                        <td>Entreprise * (si apprenti) :</td>
-                        <td><input type = "text" name = "entreprise"></td>
+                        <td>Entreprise<i>*</i> :</td>
+                        <td><input type = "text" name = "entreprise"><br><br></td>
                     </tr>
 
                     <tr>
-                        <td>Nom * :</td>
-                        <td><input type = "text" name = "nom"></td>
+                        <td>Nom<i>*</i> :</td>
+                        <td><input type = "text" name = "nom"><br><br></td>
                     </tr>
 
                     <tr>
-                        <td>Prenom * :</td>
-                        <td><input type = "text" name = "prenom"></td>
+                        <td>Prenom<i>*</i> :</td>
+                        <td><input type = "text" name = "prenom"><br><br></td>
                     </tr>
 
                     <tr>
                         <td>Date de naissance :</td>
-                        <td><input type = "date" name = "naissance"></td>
+                        <td><input type = "date" name = "naissance"><br><br></td>
                     </tr>
 
                     <tr>
                         <td>Genre :</td>
-                        <td><input type="radio" name="genre" value="homme">Homme</td>
-                        <td><input type="radio" name="genre" value="femme">Femme</td>
-                        <td><input type="radio" name="genre" value="autre">Autre</td>
+                        <td><input type="radio" name="genre" value="homme">Homme<br><br></td>
+                        <td><input type="radio" name="genre" value="femme">Femme<br><br></td>
+                        <td><input type="radio" name="genre" value="autre">Autre<br><br></td>
                     </tr>
 
                     <tr>
@@ -139,7 +141,7 @@
                     </tr>
                 </table>
             </form>
-            <p <?php if($admin == true) {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>Deja inscrit ? <a href = "login.html">Connectez-vous</a></p>
+            <r <?php if($admin == true) {echo "style='display: none;'";} else {echo "style='display: block;'";} ?>>Deja inscrit ? <a href = "login.html">Connectez-vous</a></r>
         </div>
 	</body>
 </html>

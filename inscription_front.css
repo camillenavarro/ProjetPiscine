@@ -1,0 +1,73 @@
+html{
+    background-image: url(fond.jpg);
+   color:white;
+  
+}
+h2{
+    margin-left:42.5%;
+    font-size:300%;
+    font-weight: bold;
+    color:whitesmoke;
+}
+p{
+    margin-top:3%;
+    margin-left:40%;
+    color:lightgray; 
+    font-size: 130%;
+}
+i{
+    color:red;
+    font-weight: bold;
+}
+table{
+    font-weight: bold;
+    margin-left:40%;
+    font-size: 130%;
+}
+button{
+    height:50px;
+    width:100px;
+    background-color:darkblue;
+    color:white;
+    margin-top:3%;
+    margin-left:40%;
+    font-weight: bold;
+    font-size:75%;
+}
+button:focus{
+    color:lightblue;
+
+}
+input[type="text"]{
+    
+   font-size: 20px;
+   padding: 5px;
+   width: 200px;
+   height: 25px; 
+}
+td>input[type="radio"]{
+display:table-column;
+   font-size: 20px;
+   padding: 5px;
+   width: 100px;
+   height: 25px; 
+}
+select{
+    height:40px;
+    width: 125px;
+    font-size:75%;
+}
+r{
+    color:lightgray;
+    margin-top:-20px;
+    margin-left:55%;
+    font-size: 130%;
+}
+r>a{
+    text-decoration:none;
+    color:gold;
+}
+r>a:focus{
+    text-decoration:none;
+    color:silver;
+}
