@@ -52,8 +52,11 @@ i{
     color:red;
     font-weight: bold;
 }
+
 /* position de la table pour enregistrer quelqu'un*/
 table{
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
     font-weight: bold;
     margin-left:20%;
     font-size: 180%;
