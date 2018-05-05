@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link href="accueil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Publier une offre</title>
     </head>
     
     <body>
-        <div class="conteneur">
+    <ul class="conteneur">
             
-            <div class="menu">
-                <a href="accueil.php"><button>Accueil</button></a>
-                <a href="gestion_profil.php"><button>Modifier mon profil</button></a>
-                <a href="profil.php"><button>Voir mon profil</button></a>
-                <a href="reseau.php"><button>Mon réseau</button></a>
-                <a href="notifications.php"><button>Mes notifications</button></a>
-                <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a>
-                <a href="deconnexion.php"><button>Déconnexion</button></a>
-            </div>
-			
+            <ul class="menu">
+            <li> <a href="accueil.php"><button>Accueil</button></a></li>
+               <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
+                <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
+               <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
+               <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
+               <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
+            </ul>
+            
 			<form action = "form_emploi_back.php" method = "post">
 				<table>
                     <tr>
