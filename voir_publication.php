@@ -10,8 +10,8 @@
             $id_pub = $id_pub_user[$i]; //On sauvegarde l'id de la publication à voir
         }
     }
-
-	$_SESSION['id_pub'] = $id_pub_user;
+	
+	$_SESSION['id_pub'] = $id_pub;
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
     $db_handle = new mysqli("localhost", "root", "") or die ("Connexion au serveur impossible!"); //Vérification de la connexion au serveur
@@ -100,15 +100,15 @@
                             echo '<img src="image/' . $nom_fichier . '"/>';
                         }
                     ?></p>
-				<form action = "reactions.php" method = "post">
+				<form action = "reaction_vp.php" method = "post">
 
-				<input type = "submit" value = "Aimer" name = "0">
-				<input type = "submit" value = "Partager" name = "0">
+				<input type = "submit" value = "Aimer" name = "action">
+				<input type = "submit" value = "Partager" name = "action">
 				<table>
 					<tr>
 						<td>Commentaire : </td>
 						<td><input type = "text" name = "comm"></td>
-						<td><input type = "submit" name = "0" value = "Commenter"></td>
+						<td><input type = "submit" name = "action" value = "Commenter"></td>
 					</tr>
 				</table>
 				</form>
