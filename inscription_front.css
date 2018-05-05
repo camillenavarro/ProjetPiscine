@@ -1,29 +1,35 @@
+/* Ceci est pour mettre l'image de fond et faire que tous les textes soient blanc par défaut*/
 html{
     background-image: url(fond.jpg);
    color:white;
   
 }
+/* graphisme de titre */
 h2{
     margin-left:42.5%;
     font-size:300%;
     font-weight: bold;
     color:whitesmoke;
 }
+/* graphisme du message informant les obligations */
 p{
     margin-top:3%;
     margin-left:40%;
     color:lightgray; 
     font-size: 130%;
 }
+/* graphisme des pastilles obligations */
 i{
     color:red;
     font-weight: bold;
 }
+/* position de la table pour enregistrer quelqu'un*/
 table{
     font-weight: bold;
     margin-left:40%;
     font-size: 130%;
 }
+/* graphisme du bouton enregistrer */
 button{
     height:50px;
     width:100px;
@@ -34,10 +40,12 @@ button{
     font-weight: bold;
     font-size:75%;
 }
+/* effet du bouton quand on appuie dessus */
 button:focus{
     color:lightblue;
 
 }
+/* taille de la boite texte */
 input[type="text"]{
     
    font-size: 20px;
@@ -45,6 +53,7 @@ input[type="text"]{
    width: 200px;
    height: 25px; 
 }
+/* taille des boutons radio */
 td>input[type="radio"]{
 display:table-column;
    font-size: 20px;
@@ -52,21 +61,25 @@ display:table-column;
    width: 100px;
    height: 25px; 
 }
+/* taille des combobox */
 select{
     height:40px;
     width: 125px;
     font-size:75%;
 }
+/* graphisme et position de la ligne conectez vous */
 r{
     color:lightgray;
     margin-top:-20px;
     margin-left:55%;
     font-size: 130%;
 }
+/* graphisme du lien */
 r>a{
     text-decoration:none;
     color:gold;
 }
+/* effet quand on appuie sur le lien */
 r>a:focus{
     text-decoration:none;
     color:silver;
