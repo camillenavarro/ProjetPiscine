@@ -121,6 +121,21 @@
         <a href="deconnexion.php"><button>Déconnexion</button></a>
 			
 		<h1>Mon réseau</h1> 
+		<h2>Rechercher un utilisateur</h2>
+		<form action = "rechercher.php" method = "post">
+		<table>
+			<tr>
+				<td>Nom :</td>
+				<td><input type = "text" name = "nom"></td>
+			</tr>
+			<tr>
+				<td>Prénom :</td>
+				<td><input type = "text" name = "prenom"></td>
+			</tr>
+		</table>
+		<input type = "submit" value = "Rechercher">
+		</form>
+		
 		<h2>Amis</h2>
 		<table>
 		<tbody>

@@ -49,7 +49,7 @@
 					$id_media = $db_field4['COUNT(id_media)'] + 4;
 				}
 				
-				$SQL5 = "INSERT INTO media VALUES ('$id_media', '$id_user', 'photo', '$photo', 'Fond', NULL, NULL)";
+				$SQL5 = "INSERT INTO media (id_user,type,nom_fichier,titre) VALUES ('$id_user', 'photo', '$photo', 'Fond')";
 				$db_handle->query($SQL5);	
 
 				$SQL6 = "UPDATE profil SET id_fond = '$id_media' WHERE id_user = '$id_user' ";
@@ -73,7 +73,7 @@
 					$id_media = $db_field4['COUNT(id_media)'] + 4;
 				}
 				
-				$SQL5 = "INSERT INTO media VALUES ('$id_media', '$id_user', 'photo', '$photo', 'Fond', NULL, NULL)";
+				$SQL5 = "INSERT INTO media (id_user,type,nom_fichier,titre) VALUES ('$id_user', 'photo', '$photo', 'Profil')";
 				$db_handle->query($SQL5);	
 
 				$SQL6 = "UPDATE profil SET id_photo = '$id_media' WHERE id_user = '$id_user' ";
