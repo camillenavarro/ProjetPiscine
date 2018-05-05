@@ -71,8 +71,8 @@ button{
     font-size:75%;
 }
 /* effet du bouton quand on appuie dessus */
-button:focus{
-    color:lightblue;
+button:hover{
+    color:gold;
 
 }
 /* taille de la boite texte */
@@ -110,7 +110,7 @@ r>a{
     color:gold;
 }
 /* effet quand on appuie sur le lien */
-r>a:focus{
+r>a:hover{
     text-decoration:none;
     color:silver;
 }
