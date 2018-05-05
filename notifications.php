@@ -1,4 +1,7 @@
 <?php
+    //Session
+    session_start() ;
+
     //Variables 
     $id_contacts = array();
     $id_pub = array();
@@ -7,6 +10,7 @@
     $nom_contact = array();
     $prenom_contact = array();
     $date_post = array();
+    $id_pub_user = array();
 
     $i = 0;
     $j = 0;
@@ -123,11 +127,12 @@
 
 
     //3) On regarde si l'auteur de la notification correspond à un contact de l'utilisateur
-    for($i = 0 ; $i < sizeof($id_pub) ; $i++)
+    for($i = sizeof($id_pub) - 1; $i > -1  ; $i--)
     {
-        for($j = 0 ; $j < sizeof($id_contacts) ; $j++)
+        for($j = sizeof($id_contacts) - 1 ; $j > -1  ; $j--)
         {
             if($id_auteur_pub[$i] == $id_contacts[$j]){
+                array_push($id_pub_user,$id_pub[$i] );
                 
                 //3) On récupère le nom et prénom de l'auteur de la publication
                 $SQL9 = "SELECT * FROM utilisateur WHERE id_user ='$id_auteur_pub[$i]'";
@@ -147,13 +152,39 @@
                 while ($db_field10 = $result10->fetch_assoc()) {
                     $detail_pub = $db_field10['texte'];
                     $date_post = $db_field10['date_post'];
+                    $id_media = $db_field10['id_media'];
                 }
                 
-                $notif_pub[$m] = $prenom_contact . " " . $nom_contact . "<br>Details: " . $detail_pub;  
-                $m++;
+                //Deux types de publication:
+                //1) Les simples textes
+                if ($texte_pub[$i] == "Nouvelle publication"){
+                    $notif_pub[$m] = $date_post . '<br>' . $texte_pub[$i] . " de " . $prenom_contact . " " . $nom_contact . " !";  
+                    $m++;
+                }
+                
+                //2) Les photos
+                else if ($texte_pub[$i] == "Photo") {
+                    
+                    //Il faut récupérer le nom du fichier de la photo
+                    $SQL11 = "SELECT * FROM media WHERE id_media ='$id_media'";
+                    $result11 = $db_handle->query($SQL11);
+
+                    //Récupération des résultats
+                    while ($db_field11 = $result11->fetch_assoc()) {
+                        $nom_fichier = $db_field11['nom_fichier'];
+                    }
+                   // array_push($reseau, $pseudo_ami[$i]);
+                    //$id_pub_user[$m] = $id_pub[$i]; //On sauvegarde l'id de la publication affichée pour cet utilisateur
+                    $notif_pub[$m] = $date_post . ' <br>Nouvelle ' . $texte_pub[$i] . ' de ' . $prenom_contact . ' ' . $nom_contact . ' !';
+                    $m++;
+                }
+
             }
         }
     }
+
+    //On fait passé le taleau de notification 
+    $_SESSION['id_pub'] = $id_pub_user;
         
     //Libération des résultats
     $result->free();
@@ -166,7 +197,7 @@
     <head>
         <link href="accueil.css" rel="stylesheet"/>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Accueil</title>
+        <title>Mes notifications</title>
     </head>
     
     <body>
@@ -177,58 +208,28 @@
                <li> <a href="gestion_profil.php"><button>Modifier mon profil</button></a></li>
                 <li> <a href="profil.php"><button>Voir mon profil</button></a></li>
                <li> <a href="reseau.php"><button>Mon réseau</button></a></li>
-               <li> <a href=""><button>Mes notifications</button></a></li>
+               <li> <a href="notifications.php"><button>Mes notifications</button></a></li>
                <li> <a href="liste_emplois.php"><button>Mes offres d'emplois</button></a></li> 
                <li> <a href="deconnexion.php"><button>Déconnexion</button></a></li>  
             </ul>
             
-            <div id="accueil_gauche">
+            <div id="notif_centre">
                 <!-- Photo de profil -->
-                <h2>Bonjour, <?php echo $pseudo;?></h2>
-                <div id="photo_profil">
-                        <img src="image/<?php echo $photo_profil; ?>" alt="Photo de profil de <?php echo $prenom; ?> <?php echo $nom; ?>" height="200" width="200">
-                </div>
-                
-                <!-- Identité -->
-                <div id="identite">
-                    <p><?php echo $prenom; ?> <?php echo $nom; ?></p>
-                </div>
-                
-                <!-- Renseignements supplémentaires -->
-            </div>
-            
-            <div id="accueil_droite">                
-                <!-- Publication -->
-                <form method="POST" action="Publication.php" enctype="multipart/form-data">
-
-            <p><textarea name="Publi"></textarea><br><br>
-                <button type="submit" name="Soumettre">Envoyer une Publication</button></p><br><br>
-
-            <p><input type="file" name="file"><br><br> 
-          <button type="submit" name="submit">Enregistrer une Image</button> </p><br><br>
-             </form>
-				
-				<!--Possibilité de créer une offre d'emploi pour un admin-->
-				<div id="boutons_administrateur">
-					<p <?php if($droit != "administrateur") { echo "style='display: none;'"; } else { echo "style='display: block;'"; } ?>>
-						<a href = "form_emploi_front.php"><input type = "submit" value = "Poster une offre d'emploi"></a>
-					</p>
-				</div>
-                
+                <h2>Mes notifications</h2>
                 <!-- Les notifications -->
-                <div id="accueil_notif">
-                    <h3>Mes notifications</h3>
-                    <?php for($i = sizeof($notif_pub)-1 ; $i > -1 ; $i--){ ?>
-                        <p><?php echo $notif_pub[$i];?></p>
+                <div id="notifications">
+                    <!-- Afficher les notifications de la plus récente à la plus ancienne -->
+                    <?php for($i = 0; $i < sizeof($notif_pub)-1  ; $i++){ ?>
+                        <p>
+                            <?php echo $notif_pub[$i];?>
+                            <form action="voir_publication.php" method="post">
+                                <input type="submit" value="Voir la publication" name="<?php echo $i; ?>">
+                            </form>
+                        
                     <?php } ?>
+                    </p>
                 </div>
-                
-                <!-- Les demandes d'amis -->
-            <form action = "reception_demande_front.php" method = "post">
-				<input type = "submit" value = "Voir les demandes d'amis">
-			</form>
             </div>
-        
         </ul>
     
     </body>
