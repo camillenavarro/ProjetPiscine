@@ -47,7 +47,53 @@ h2{
 
 }
 h3{
+    
     font-size: 200%;
+}
+div[name="not"]{
+    padding:20px;
+    background-image:url(fonText.jpg);
+    border:solid 2px white;
+    margin-right:2000px;
+}
+input[value="Aimer"]{
+    margin-top:10px;
+    height:50px;
+    width:100px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+input[value="Aimer"]:hover{
+    color:gold;
+}
+input[value="Commenter"]{
+    margin-top:10px;
+    height:50px;
+    width:100px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+input[value="Commenter"]:hover{
+    color:gold;
+
+}
+input[value="Partager"]{
+    margin-top:10px;
+    height:50px;
+    width:100px;
+    background-image:url(bouton.jpg);
+    color:white;
+    font-size:100%;
+}
+input[value="Partager"]:hover{
+    color:gold;
+
+}
+input[type="text"]{
+    width: 200px;
+    height: 50px;
 }
 t>p{
     margin-left:80px;
@@ -69,6 +115,8 @@ p>textarea{
    min-height: 70px;  
 }
 g{
+    text-align: center;
+    background-color: #025384;
     margin-left:20%;
     margin-top:100%;
     margin-bottom:-100px;
@@ -132,8 +180,6 @@ input[name="ami"]
     width:500px;
     background-image:url(bouton.jpg);
     color:white;
-    
-    
     font-weight: bold;
     font-size:110%;
 }

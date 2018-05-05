@@ -250,7 +250,7 @@
 				
                  
                 <!-- Les notifications -->
-                <div id="accueil_notif">
+                <div name="not" id="accueil_notif">
                     <h3>Mur</h3>
                     <?php for($i = 0; $i < sizeof($notif_pub)  ; $i++)
 			{ 
