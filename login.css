@@ -1,0 +1,32 @@
+html{
+    background-image: url(fond.jpg);
+}
+
+button{
+    height:50px;
+    background-image:url(bouton.jpg);
+    color:white;
+    width: 150px;
+    font-size: 100%
+    
+}
+button:focus{
+
+    color:lightskyblue;
+    
+}
+body>form>input[type="text"]{
+    width: 200px;
+    height: 25px;
+}
+body>form>input[type="password"]{
+    width: 200px;
+    height: 25px;
+}
+body>form{
+    margin:15%;
+    margin-left: 45%;
+    margin-right: 50%;
+font-size: 118%;
+   color:white;
+}
