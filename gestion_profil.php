@@ -290,11 +290,7 @@
             
             <!-- Colonne de droite -->
             <div id="gestion_profil_droite">
-                <!-- Evénements récents -->
-                <div name="event" id="evenements">
-                    <h2>Evénements récents</h2>
-                </div>
-
+                
                 <!-- Image de fond -->
                 <div name="I" id="photo_fond">
                     <h2>Image de fond</h2>
