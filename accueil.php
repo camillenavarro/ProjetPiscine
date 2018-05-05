@@ -23,6 +23,7 @@
     $m = 0;
     $save = 0;
     $n = 0;
+$z = 0;
 
     //Connexion à la BDD
     $database = "piscine"; //Nom de la BDD
@@ -182,15 +183,14 @@
                     $notif_pub[$m] = $texte_pub[$i] . ' de ' . $prenom_contact . ' ' . $nom_contact . '<br>Date de publication: ' . $date_post . '<br>Details: ' . $detail_pub . '<br>' . '<img src="image/' . $nom_fichier . '" width="120px" height="120px" />';
                     $m++;
                 }
-            }
-        }
-	    // Récupère les réactions de la publication
+                
+                	    // Récupère les réactions de la publication
 		$SQL13 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'aime'";
 		$result13 = $db_handle->query($SQL13);
 		
 		while ($db_field13 = $result13->fetch_assoc()) 
 		{
-			$aime[$i] = $db_field13['COUNT(id_action)'];
+			$aime[$z] = $db_field13['COUNT(id_action)'];
 		}
 		
 		$SQL14 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'partage'";
@@ -198,7 +198,7 @@
 		
 		while ($db_field14 = $result14->fetch_assoc()) 
 		{
-			$partage[$i] = $db_field14['COUNT(id_action)'];
+			$partage[$z] = $db_field14['COUNT(id_action)'];
 		}
 		
 		$SQL17 = "SELECT COUNT(id_action) FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'commentaire'";
@@ -211,7 +211,7 @@
 		
 		$SQL15 = "SELECT * FROM action WHERE id_pub = '$id_pub[$i]' AND type = 'commentaire'";
 		$result15 = $db_handle->query($SQL15);
-		$commentaires[$i] = "";
+		$commentaires[$z] = "";
 		
 		for($p = 0 ; $p < $nb_comm ; $p++)
 		{
@@ -242,12 +242,16 @@
 					$prenom_comm[$p] = $db_field16['prenom'];
 				}
 				
-				$commentaires[$i] .= "<br>" . $prenom_comm[$p] . " " . $nom_comm[$p] . " : " . $comm[$p] ;
+				$commentaires[$z] .= "<br>" . $prenom_comm[$p] . " " . $nom_comm[$p] . " : " . $comm[$p] ;
 				
 			}
 			
 		}
+                $z++;
     }
+            }
+        }
+
         
     $_SESSION['id_pub'] = $id_pub_user;
 
@@ -325,9 +329,9 @@
 			{ 
 			?>
                         <p><?php echo $notif_pub[$i]; ?></p>
-			<p><?php if($aime > 0) { echo $aime[sizeof($id_pub) - 1 - $i]; ?> aiment ça. <?php } ?>
-			<br><?php if($partage > 0) { echo $partage[sizeof($id_pub) - 1 - $i]; ?> ont partagé.<?php } ?>
-			<?php echo $commentaires[sizeof($id_pub) - 1 - $i]; ?></p>
+			<p><?php if($aime > 0) { echo $aime[$i]; ?> aiment ça. <?php } ?>
+			<br><?php if($partage > 0) { echo $partage[$i]; ?> ont partagé.<?php } ?>
+			<?php echo $commentaires[$i]; ?></p>
 				<form action = "reactions.php" method = "post">
 
 				<input type = "submit" value = "Aimer" name = "<?php echo $i; ?>">
