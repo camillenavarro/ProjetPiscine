@@ -216,7 +216,11 @@
                 </p>
 
                 		
-                
+                <!-- Identité -->
+                <p id="identite"><?php echo $prenom; ?> <?php echo $nom; ?></p>
+
+                <!-- Adresse mail -->
+                <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
 
                 <!-- Fin de la colonne de gauche -->
             </div>
@@ -224,11 +228,7 @@
             
             <!-- Colonne centrale -->
             <div id="profil_centre">
-                <!-- Identité -->
-                <p id="identite"><?php echo $prenom; ?> <?php echo $nom; ?></p>
-
-                <!-- Adresse mail -->
-                <p id="mail"><a href="mailto:<?php echo $mail; ?>"><?php echo $mail; ?></a></p>
+                
                 
                 <!-- Etudes et expérience -->
                 <div id="etudes">
